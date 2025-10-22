@@ -1,11 +1,12 @@
 package runtime
 
 import (
-	"github/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/pkg/runtime/fnhandler"
 	"log"
 	"net/http"
 	"net/rpc"
 	"os"
+
+	"github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/pkg/runtime/fnhandler"
 )
 
 // Valid function signatures:

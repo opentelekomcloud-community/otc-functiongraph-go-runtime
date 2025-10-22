@@ -1,7 +1,7 @@
 package context
 
 import (
-	"github/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/pkg/runtime/common"
+	"github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/pkg/runtime/common"
 )
 
 type RuntimeContext interface {

@@ -4,14 +4,15 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/pkg/runtime/common"
-	"github/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/pkg/runtime/context"
 	"log"
 	"net/http"
 	"os"
 	"runtime"
 	"strconv"
 	"strings"
+
+	"github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/pkg/runtime/common"
+	"github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/pkg/runtime/context"
 )
 
 const (
