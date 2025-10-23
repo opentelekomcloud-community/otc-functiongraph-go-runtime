@@ -2,6 +2,7 @@ package rtcontext
 
 import (
 	"fmt"
+	"strings"
 	"sync"
 	"time"
 
@@ -14,6 +15,8 @@ var (
 
 	funcLogger = &userFunctionLog{}
 )
+
+var DEBUG_MODE = false
 
 func (ctxProvider ContextProvider) GetRemainingTimeInMilliSeconds() int {
 	currentTime := getCurrentTime()
@@ -71,11 +74,27 @@ func (ctxProvider ContextProvider) GetPackage() string {
 }
 
 func (ctxProvider ContextProvider) GetHandler() string {
-	return ctxProvider.ctxEnv.rtHanlder
+	return ctxProvider.ctxEnv.rtHandler
 }
 
 func (ctxProvider ContextProvider) GetInitializerHandler() string {
-	return ctxProvider.ctxEnv.rtInitializerHanlder
+	return ctxProvider.ctxEnv.rtInitializerHandler
+}
+
+func (ctxProvider ContextProvider) GetMaxRequestBodySize() int {
+	return ctxProvider.ctxEnv.rtMaxRequestBodySize
+}
+
+func (ctxProvider ContextProvider) GetPreStopHandler() string {
+	return ctxProvider.ctxEnv.rtPreStopHandler
+}
+
+func (ctxProvider ContextProvider) GetRunMaxStateSize() int {
+	return ctxProvider.ctxEnv.rtRunMaxStateSize
+}
+
+func (ctxProvider ContextProvider) GetMaxResponseBodySize() int {
+	return ctxProvider.ctxEnv.rtMaxResponseBodySize
 }
 
 func (ctxProvider ContextProvider) GetAccessKey() string {
@@ -106,10 +125,51 @@ func (ctxProvider ContextProvider) GetSecurityToken() string {
 	return ctxProvider.ctxHTTPHead.securityToken
 }
 
+func (ctxProvider ContextProvider) GetStreamRunID() string {
+	return ctxProvider.ctxHTTPHead.streamRunId
+}
+
+func (ctxProvider ContextProvider) GetStreamEnable() string {
+	return ctxProvider.ctxHTTPHead.streamEnable
+}
+
+func (ctxProvider ContextProvider) GetStreamToken() string {
+	return ctxProvider.ctxHTTPHead.streamToken
+}
+
+func (ctxProvider ContextProvider) GetStreamAddr() string {
+	return ctxProvider.ctxHTTPHead.streamAddr
+}
+
+func (ctxProvider ContextProvider) GetOriginVersionTag() string {
+	return ctxProvider.ctxHTTPHead.originVersionTag
+}
+
+func (ctxProvider ContextProvider) GetAlias() string {
+	alias, found := strings.CutPrefix(ctxProvider.ctxHTTPHead.originVersionTag, "!")
+	if found {
+		return alias
+	}
+	return ""
+}
+
+func (ctxProvider ContextProvider) GetWorkflowStateID() string {
+	return ctxProvider.ctxHTTPHead.workflowStateId
+}
+
+func (ctxProvider ContextProvider) GetWorkflowID() string {
+	return ctxProvider.ctxHTTPHead.workflowId
+}
+
+func (ctxProvider ContextProvider) GetWorkflowRunID() string {
+	return ctxProvider.ctxHTTPHead.workflowRunId
+}
+
 func (logger *userFunctionLog) Logf(format string, args ...interface{}) {
-	logTimeFormat := "2006-01-02 15:04:05.999-07:00"
+	// logTimeFormat := "2006-01-02 15:04:05.999-07:00"
+	logTimeFormat := "2006-01-02T15:04:05.000Z"
 	content := fmt.Sprintf(format, args...)
-	myFormat := fmt.Sprintf("%s %s %s", time.Now().Format(logTimeFormat), logger.requestID, content)
+	myFormat := fmt.Sprintf("%s %s %s", time.Now().UTC().Format(logTimeFormat), logger.requestID, content)
 	fmt.Println(myFormat)
 }
 
@@ -127,6 +187,16 @@ func GetContextEnvInstance() *ContextEnv {
 
 func GetContextHTTPHeadInstance(req *common.InvokeRequest) *ContextHTTP {
 	contextHTTPHead := new(ContextHTTP)
+
+	if DEBUG_MODE {
+		for name, values := range req.Header {
+			// Loop over all values for the name.
+			for _, value := range values {
+				fmt.Println(name, value)
+			}
+		}
+	}
+
 	requestID := req.Header.Get("X-CFF-Request-Id")
 	if requestID != "" {
 		contextHTTPHead.requestID = requestID
@@ -156,5 +226,43 @@ func GetContextHTTPHeadInstance(req *common.InvokeRequest) *ContextHTTP {
 	if securityToken != "" {
 		contextHTTPHead.securityToken = securityToken
 	}
+
+	streamRunId := req.Header.Get("X-Stream-Run-Id")
+	if streamRunId != "" {
+		contextHTTPHead.streamRunId = streamRunId
+	}
+	streamEnable := req.Header.Get("X-Stream-Enable")
+	if streamEnable != "" {
+		contextHTTPHead.streamEnable = streamEnable
+	}
+	streamToken := req.Header.Get("X-Stream-Token")
+	if streamToken != "" {
+		contextHTTPHead.streamToken = streamToken
+	}
+	streamAddr := req.Header.Get("X-Stream-Addr")
+	if streamAddr != "" {
+		contextHTTPHead.streamAddr = streamAddr
+	}
+
+	originVersionTag := req.Header.Get("X-Cff-Origin-Version-Tag")
+	if originVersionTag != "" {
+		contextHTTPHead.originVersionTag = originVersionTag
+	}
+
+	workflowStateId := req.Header.Get("X-Cff-Workflow-State-Id")
+	if workflowStateId != "" {
+		contextHTTPHead.workflowStateId = workflowStateId
+	}
+
+	workflowId := req.Header.Get("X-Cff-Workflow-Id")
+	if workflowId != "" {
+		contextHTTPHead.workflowId = workflowId
+	}
+
+	workflowRunId := req.Header.Get("X-Cff-Workflow-Run-Id")
+	if workflowRunId != "" {
+		contextHTTPHead.workflowRunId = workflowRunId
+	}
+
 	return contextHTTPHead
 }

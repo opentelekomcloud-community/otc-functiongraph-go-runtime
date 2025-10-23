@@ -40,7 +40,7 @@ func init() {
 		}
 	}
 
-	contextObj.InitiliazeContext()
+	contextObj.InitializeContext()
 }
 
 type stack struct {

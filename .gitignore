@@ -34,3 +34,5 @@ go.work.sum
 *.zip
 
 target
+.tox
+build

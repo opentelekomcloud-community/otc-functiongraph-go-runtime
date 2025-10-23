@@ -38,4 +38,22 @@ type RuntimeContext interface {
 	GetToken() string
 
 	GetSecurityToken() string
+
+	GetStreamRunID() string
+
+	GetStreamEnable() string
+
+	GetStreamToken() string
+
+	GetStreamAddr() string
+
+	GetOriginVersionTag() string
+
+	GetWorkflowStateID() string
+
+	GetWorkflowID() string
+
+	GetWorkflowRunID() string
+
+	GetAlias() string
 }
