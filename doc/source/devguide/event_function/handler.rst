@@ -13,7 +13,6 @@ Setting up the Go handler project
 A typical Go FunctionGraph project is typically structured as follows:
 
 .. code-block:: console
-  :emphasize-lines: 6
   :caption: Project structure
 
   /project-root
