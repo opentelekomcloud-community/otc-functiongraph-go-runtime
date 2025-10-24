@@ -5,10 +5,17 @@ import (
 )
 
 type APIGRequestContext struct {
-	ApiId     string `json:"apiId"`
+	// API ID
+	ApiId string `json:"apiId"`
+
+	// The requestId of this API request
 	RequestId string `json:"requestId"`
-	Stage     string `json:"stage"`
-	SourceIp  string `json:"sourceIp"`
+
+	// Release environment name
+	Stage string `json:"stage"`
+
+	// Source IP address
+	SourceIp string `json:"sourceIp"`
 }
 
 func (rc APIGRequestContext) String() string {

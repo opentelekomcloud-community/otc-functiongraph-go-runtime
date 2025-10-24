@@ -1,3 +1,12 @@
+/*
+Data Ingestion Service (DIS) can ingest large amounts of data in real time.
+You can create a function to automatically poll a DIS stream and process all new data records,
+such as website click streams, financial transactions, social media streams, IT logs, and location-tracking events.
+FunctionGraph periodically polls the stream for new data records.
+
+For more information about how to use DIS trigger,
+see: https://docs.otc.t-systems.com/function-graph/umn/creating_triggers/using_a_dis_trigger.html#functiongraph-01-0206
+*/
 package dis
 
 import (
@@ -5,9 +14,16 @@ import (
 )
 
 type DISTriggerEvent struct {
-	ShardID    string
-	Message    DISMessage
-	Tag        string
+	// Partition ID
+	ShardID string
+
+	// DIS message body ( DISMessage structure )
+	Message DISMessage
+
+	// Function version
+	Tag string
+
+	// Channel Name
 	StreamName string
 }
 

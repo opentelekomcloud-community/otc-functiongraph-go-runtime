@@ -5,12 +5,23 @@ import (
 )
 
 type DDSRecord struct {
-	EventName     string            `json:"event_name"`
-	EventVersion  string            `json:"event_version"`
-	EventSource   string            `json:"event_source"`
-	Region        string            `json:"region"`
-	Dds           map[string]string `json:"dds"`
-	EventSourceId string            `json:"event_source_id"`
+	// Event name
+	EventName string `json:"event_name"`
+
+	// Event protocol version
+	EventVersion string `json:"event_version"`
+
+	// Source of the event
+	EventSource string `json:"event_source"`
+
+	// The region where the DDS instance is located
+	Region string `json:"region"`
+
+	// DDS body
+	Dds DDSBody `json:"dds"`
+
+	// Event source unique identifier
+	EventSourceId string `json:"event_source_id"`
 }
 
 func (r *DDSRecord) String() string {

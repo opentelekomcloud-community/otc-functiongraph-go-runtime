@@ -12,6 +12,7 @@ type ContextEnv struct {
 	rtUserData           map[string]string // RUNTIME_USER_DATA
 	rtInitializerTimeout int               // RUNTIME_INITIALIZER_TIMEOUT
 	rtInitializerHandler string            // RUNTIME_INITIALIZER_HANDLER
+	rtAlias              string            // RUNTIME_ALIAS
 	// new
 	rtMaxRequestBodySize  int    // RUNTIME_MAX_REQUEST_BODY_SIZE
 	rtPreStopHandler      string // RUNTIME_PRESTOP_HANDLER

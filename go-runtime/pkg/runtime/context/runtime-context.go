@@ -81,6 +81,10 @@ func (ctxProvider ContextProvider) GetInitializerHandler() string {
 	return ctxProvider.ctxEnv.rtInitializerHandler
 }
 
+func (ctxProvider ContextProvider) GetAlias() string {
+	return ctxProvider.ctxEnv.rtAlias
+}
+
 func (ctxProvider ContextProvider) GetMaxRequestBodySize() int {
 	return ctxProvider.ctxEnv.rtMaxRequestBodySize
 }
@@ -145,7 +149,7 @@ func (ctxProvider ContextProvider) GetOriginVersionTag() string {
 	return ctxProvider.ctxHTTPHead.originVersionTag
 }
 
-func (ctxProvider ContextProvider) GetAlias() string {
+func (ctxProvider ContextProvider) GetAlias2() string {
 	alias, found := strings.CutPrefix(ctxProvider.ctxHTTPHead.originVersionTag, "!")
 	if found {
 		return alias

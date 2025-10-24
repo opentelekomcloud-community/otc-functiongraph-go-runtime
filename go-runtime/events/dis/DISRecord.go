@@ -5,8 +5,13 @@ import (
 )
 
 type DISRecord struct {
-	PartitionKey   string `json:"partition_key"`
-	Data           string `json:"data"`
+	// Partition key
+	PartitionKey string `json:"partition_key"`
+
+	// Data blocks, which are added by the data producer to the stream
+	Data string `json:"data"`
+
+	// Sequence number (unique identifier for each record)
 	SequenceNumber string `json:"sequence_number"`
 }
 

@@ -1,3 +1,7 @@
+/*
+For more information about how to use Kafka trigger,
+see: https://docs.otc.t-systems.com/function-graph/umn/creating_triggers/using_a_kafka_trigger.html
+*/
 package kafka
 
 import (
@@ -5,12 +9,22 @@ import (
 )
 
 type KAFKATriggerEvent struct {
-	InstanceId   string        `json:"instance_id"`
-	Records      []KAFKARecord `json:"records"`
-	TriggerType  string        `json:"trigger_type"`
-	Region       string        `json:"region"`
-	EventTime    int64         `json:"event_time"`
-	EventVersion string        `json:"event_version"`
+	// Kafka instance ID
+	InstanceId string `json:"instance_id"`
+
+	Records []KAFKARecord `json:"records"`
+
+	// Event type
+	TriggerType string `json:"trigger_type"`
+
+	// Region where a Kafka instance resides
+	Region string `json:"region"`
+
+	// Time when an event occurs
+	EventTime int64 `json:"event_time"`
+
+	// Event version
+	EventVersion string `json:"event_version"`
 }
 
 func (e *KAFKATriggerEvent) String() string {

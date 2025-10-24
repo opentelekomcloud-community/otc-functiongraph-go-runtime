@@ -1,3 +1,9 @@
+/*
+You can schedule a timer to invoke your code based on a fixed rate of minutes, hours, or days or a cron expression.
+
+For more information about how to use Timer trigger,
+see https://docs.otc.t-systems.com/function-graph/umn/creating_triggers/using_a_timer_trigger.html
+*/
 package timer
 
 import (
@@ -5,11 +11,20 @@ import (
 )
 
 type TimerTriggerEvent struct {
-	Version     string `json:"version"`
-	Time        string `json:"time"`
+	// Event version
+	Version string `json:"version"`
+
+	// Time when an event occurs. (e.g. 2018-06-01T08:30:00+08:00)
+	Time string `json:"time"`
+
+	// Trigger name
 	TriggerName string `json:"trigger_name"`
+
+	// Trigger type
 	TriggerType string `json:"trigger_type"`
-	UserEvent   string `json:"user_event"`
+
+	// Additional information of the trigger
+	UserEvent string `json:"user_event"`
 }
 
 func (e *TimerTriggerEvent) String() string {

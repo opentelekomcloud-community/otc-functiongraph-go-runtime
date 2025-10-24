@@ -6,6 +6,7 @@ import (
 )
 
 type LTSBody struct {
+	// Base64 encoded data
 	Data string `json:"data"`
 }
 

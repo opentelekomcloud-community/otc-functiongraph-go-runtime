@@ -42,6 +42,12 @@ func (contextObj *ContextEnv) InitializeContext() {
 	if rtFcName != "" {
 		contextObj.rtFcName = rtFcName
 	}
+
+	rtAlias := os.Getenv("RUNTIME_ALIAS")
+	if rtAlias != "" {
+		contextObj.rtAlias = rtAlias
+	}
+
 	rtFcVersion := os.Getenv("RUNTIME_FUNC_VERSION")
 	if rtFcVersion != "" {
 		contextObj.rtFcVersion = rtFcVersion

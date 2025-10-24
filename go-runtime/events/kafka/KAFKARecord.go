@@ -5,8 +5,11 @@ import (
 )
 
 type KAFKARecord struct {
+	// Message content
 	Messages []string `json:"messages"`
-	TopicId  string   `json:"topic_id"`
+
+	// Message ID
+	TopicId string `json:"topic_id"`
 }
 
 func (r *KAFKARecord) String() string {

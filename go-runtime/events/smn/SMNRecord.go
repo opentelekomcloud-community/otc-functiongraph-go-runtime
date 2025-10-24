@@ -5,10 +5,17 @@ import (
 )
 
 type SMNRecord struct {
-	EventVersion         string  `json:"event_version"`
-	EventSubscriptionUrn string  `json:"event_subscription_urn"`
-	EventSource          string  `json:"event_source"`
-	Smn                  SMNBody `json:"smn"`
+	// Event version. (Currently, the version is 1.0.)
+	EventVersion string `json:"event_version"`
+
+	// Subscription Uniform Resource Name (URN).
+	EventSubscriptionUrn string `json:"event_subscription_urn"`
+
+	// Event source
+	EventSource string `json:"event_source"`
+
+	// Message body
+	Smn SMNBody `json:"smn"`
 }
 
 func (r *SMNRecord) String() string {

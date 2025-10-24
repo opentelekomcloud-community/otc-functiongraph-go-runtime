@@ -5,15 +5,20 @@ import (
 )
 
 type DISMessage struct {
-	NextPatitionCursor string      `json:"next_patition_cursor"`
-	Records            []DISRecord `json:"records"`
-	MillisBehindLatest string      `json:"millisBehindLatest"`
+	// Next partition cursor
+	NextPartitionCursor string `json:"next_partition_cursor"`
+
+	// Data records stored in a DIS stream
+	Records []DISRecord `json:"records"`
+
+	// Reserved Fields
+	MillisBehindLatest string `json:"millis_behind_latest"`
 }
 
 func (d *DISMessage) String() string {
 	return fmt.Sprintf(`DISMessage{
-                                 next_patition_cursor=%v,
+                                 next_partition_cursor=%v,
                                  records=%+v,
                                  millisBehindLatest=%v
-                               }`, d.NextPatitionCursor, d.Records, d.MillisBehindLatest)
+                               }`, d.NextPartitionCursor, d.Records, d.MillisBehindLatest)
 }
