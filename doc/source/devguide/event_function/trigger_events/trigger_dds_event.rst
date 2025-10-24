@@ -75,8 +75,6 @@ Parameter description
      - String
      - e6065860-f7b8-4cca-80bd-24ef2a3bb748
      - Event source unique identifier
-     - 
-
 
 Example
 -------
