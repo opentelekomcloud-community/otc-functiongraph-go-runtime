@@ -36,3 +36,6 @@ go.work.sum
 target
 .tox
 build
+
+.terraform
+.terraform*
