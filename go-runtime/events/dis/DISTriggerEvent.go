@@ -1,18 +1,18 @@
 package dis
 
 import (
-    "fmt"
+	"fmt"
 )
 
 type DISTriggerEvent struct {
-    ShardID string
-    Message DISMessage
-    Tag string
-    StreamName string
+	ShardID    string
+	Message    DISMessage
+	Tag        string
+	StreamName string
 }
 
 func (e *DISTriggerEvent) String() string {
-    return fmt.Sprintf(`DISTriggerEvent{
+	return fmt.Sprintf(`DISTriggerEvent{
                                   ShardID=%v,
                                   Message=%+v,
                                   Tag=%v,

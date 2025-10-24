@@ -1,20 +1,20 @@
 package kafka
 
 import (
-    "fmt"
+	"fmt"
 )
 
 type KAFKATriggerEvent struct {
-    InstanceId   string        `json:"instance_id"`
-    Records      []KAFKARecord `json:"records"`
-    TriggerType  string        `json:"trigger_type"`
-    Region       string        `json:"region"`
-    EventTime    int64         `json:"event_time"`
-    EventVersion string        `json:"event_version"`
+	InstanceId   string        `json:"instance_id"`
+	Records      []KAFKARecord `json:"records"`
+	TriggerType  string        `json:"trigger_type"`
+	Region       string        `json:"region"`
+	EventTime    int64         `json:"event_time"`
+	EventVersion string        `json:"event_version"`
 }
 
 func (e *KAFKATriggerEvent) String() string {
-    return fmt.Sprintf(`KAFKATriggerEvent{
+	return fmt.Sprintf(`KAFKATriggerEvent{
                                  instance_id=%v,
                                  records=%+v,
                                  trigger_type=%v,

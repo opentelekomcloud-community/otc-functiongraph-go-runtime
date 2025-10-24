@@ -1,18 +1,18 @@
 package apig
 
 import (
-    "fmt"
+	"fmt"
 )
 
 type APIGRequestContext struct {
-    ApiId string `json:"apiId"`
-    RequestId string `json:"requestId"`
-    Stage string `json:"stage"`
-    SourceIp string `json:"sourceIp"`
+	ApiId     string `json:"apiId"`
+	RequestId string `json:"requestId"`
+	Stage     string `json:"stage"`
+	SourceIp  string `json:"sourceIp"`
 }
 
 func (rc APIGRequestContext) String() string {
-    return fmt.Sprintf(`APIGRequestContext{
+	return fmt.Sprintf(`APIGRequestContext{
                                  apiId='%s',
                                  requestId='%s',
                                  stage='%s',

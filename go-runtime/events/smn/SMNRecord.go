@@ -1,18 +1,18 @@
 package smn
 
 import (
-    "fmt"
+	"fmt"
 )
 
 type SMNRecord struct {
-    EventVersion string `json:"event_version"`
-    EventSubscriptionUrn string `json:"event_subscription_urn"`
-    EventSource string `json:"event_source"`
-    Smn SMNBody `json:"smn"`
+	EventVersion         string  `json:"event_version"`
+	EventSubscriptionUrn string  `json:"event_subscription_urn"`
+	EventSource          string  `json:"event_source"`
+	Smn                  SMNBody `json:"smn"`
 }
 
 func (r *SMNRecord) String() string {
-    return fmt.Sprintf(`SMNRecord{
+	return fmt.Sprintf(`SMNRecord{
                                  event_version=%v,
                                  event_subscription_urn=%v,
                                  event_source=%v,

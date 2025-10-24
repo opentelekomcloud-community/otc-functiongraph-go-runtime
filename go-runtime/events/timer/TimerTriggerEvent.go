@@ -1,19 +1,19 @@
 package timer
 
 import (
-    "fmt"
+	"fmt"
 )
 
 type TimerTriggerEvent struct {
-    Version string `json:"version"`
-    Time string `json:"time"`
-    TriggerName string `json:"trigger_name"`
-    TriggerType string `json:"trigger_type"`
-    UserEvent string `json:"user_event"`
+	Version     string `json:"version"`
+	Time        string `json:"time"`
+	TriggerName string `json:"trigger_name"`
+	TriggerType string `json:"trigger_type"`
+	UserEvent   string `json:"user_event"`
 }
 
 func (e *TimerTriggerEvent) String() string {
-    return fmt.Sprintf(`TimerTriggerEvent{
+	return fmt.Sprintf(`TimerTriggerEvent{
                                  version=%v,
                                  time=%v,
                                  trigger_name=%v,

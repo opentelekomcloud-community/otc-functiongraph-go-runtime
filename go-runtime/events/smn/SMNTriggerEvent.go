@@ -1,15 +1,15 @@
 package smn
 
 import (
-    "fmt"
+	"fmt"
 )
 
 type SMNTriggerEvent struct {
-    Record []SMNRecord `json:"record"`
+	Record []SMNRecord `json:"record"`
 }
 
 func (e *SMNTriggerEvent) String() string {
-    return fmt.Sprintf(`SMNTriggerEvent{
+	return fmt.Sprintf(`SMNTriggerEvent{
                                  record=%+v
                                }`, e.Record)
 }

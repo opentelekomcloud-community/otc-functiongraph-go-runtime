@@ -1,17 +1,17 @@
 package cts
 
 import (
-    "fmt"
+	"fmt"
 )
 
 type User struct {
-    Name string `json:"name"`
-    Id string `json:"id"`
-    Domain Domain `json:"domain"`
+	Name   string `json:"name"`
+	Id     string `json:"id"`
+	Domain Domain `json:"domain"`
 }
 
 func (u *User) String() string {
-    return fmt.Sprintf(`User{
+	return fmt.Sprintf(`User{
                                  name=%v,
                                  id=%v,
                                  domain=%+v

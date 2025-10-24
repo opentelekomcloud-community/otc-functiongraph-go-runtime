@@ -1,16 +1,15 @@
 package cts
 
 import (
-    "fmt"
+	"fmt"
 )
 
 type CTSTriggerEvent struct {
-    Cts CTS  `json:"cts"`
+	Cts CTS `json:"cts"`
 }
 
 func (e *CTSTriggerEvent) String() string {
-    return fmt.Sprintf(`CTSTriggerEvent{
+	return fmt.Sprintf(`CTSTriggerEvent{
                                   cts=%+v
                                }`, e.Cts)
 }
-
