@@ -6,6 +6,7 @@ Event Function
 
    Handler <handler>
    Context <context>
+   Trigger Events <trigger_events/_index>
 
 Event functions can be configured with event triggers and integrate
 a variety of OpenTelekomCloud products (such as object storage service OBS,

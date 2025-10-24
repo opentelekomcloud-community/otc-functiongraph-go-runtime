@@ -11,6 +11,7 @@ FunctionGraph on OpenTelekomCloud.
    Building with Go <devguide/_index>
    Event Functions <devguide/event_function/_index>
    HTTP Functions <devguide/http_function/_index>
+   Deployment <devguide/deployment/_index>
    Samples <samples/_index>
    Best Practises <devguide/bestpractices/_index>
 

@@ -72,16 +72,30 @@ The following example shows a simple FunctionGraph function written in Go.
     :language: go
     :caption: :github_repo_master:`main.go <samples-doc/example/main.go>`
 
-The handler function returns following:
 
-.. code-block:: go
+Syntax for creating a handler function in Go:
+---------------------------------------------
 
-   func handleRequest(event []byte, ctx context.RuntimeContext) (string, error) {
-     ...
-     return object, error
-   }
+``func`` **Handler** ( **payload** \[\] ``byte`` , **ctx**  ``context.RuntimeContext)``
 
-**Constraints:**
+* Entry function name (**Handler**):
+
+  Entry function name.
+
+* Execution event body (**payload**)
+
+  The execution event parameters entered by the user in the function
+  execution interface, in the format of a JSON object.
+
+* Context (**ctx**):
+
+  The function execution context provided by Runtime.
+
+
+Return values of the handler function
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``return`` **object**, **error**
 
 * If the **error** parameter returned by a function is **not nil**,
   the function execution fails.
@@ -92,11 +106,11 @@ The handler function returns following:
      :header-rows: 1
      :widths: 25 75
 
-     * - Type
+     * - **object** Type
        - Description
      * - nil
        - The HTTP response body is empty.
-     * - []byte
+     * - \[\]byte
        - The content in this byte array is the body of an HTTP response.
      * - string
        - The content in this string is the body of an HTTP response.
@@ -114,7 +128,8 @@ The handler function returns following:
 The Makefile automates the build process for your Go FunctionGraph function.
 
 You can run the **make build** command in the project root directory
-to compile your function code and generate the executable file named **example**.
+to compile your function code and generate the executable file named
+**example**.
 
 The **make zip** command creates a deployment package named **deploy.zip**
 that contains the executable file.
