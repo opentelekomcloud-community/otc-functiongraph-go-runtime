@@ -1,6 +1,7 @@
 # otc-functiongraph-go-runtime
 
-Go runtime libraries for FuntionGraph on OpenTelekomCloud.
+Go runtime libraries for FunctionGraph on OpenTelekomCloud.
+
 
 
 > [!Note]
@@ -11,6 +12,23 @@ Go runtime libraries for FuntionGraph on OpenTelekomCloud.
 > ###############################################
 > </pre>
 >  
+
+## Documentation
+
+For documentation see: [otc-functiongraph-go-runtime](https://opentelekomcloud-community.github.io/otc-functiongraph-go-runtime/)
+
+>[!NOTE] 
+> To run documentation locally:  
+> 
+> Install ``tox`` as described in: [tox installation guide ](https://tox.wiki/en/4.26.0/installation.html) 
+> 
+> and run:
+>
+>  ```bash
+>  tox -e docs-auto
+>  ```
+> Open documentation in browser: <http://127.0.0.1:8882>
+
 
 > Warranty Disclaimer
 > -------------------

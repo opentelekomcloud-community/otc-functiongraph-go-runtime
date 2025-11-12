@@ -13,7 +13,7 @@ FunctionGraph on OpenTelekomCloud.
    HTTP Functions <devguide/http_function/_index>
    Deployment <devguide/deployment/_index>
    Samples <samples/_index>
-   Best Practises <devguide/bestpractices/_index>
+   Best Practices <devguide/bestpractices/_index>
 
 
 .. warning::
