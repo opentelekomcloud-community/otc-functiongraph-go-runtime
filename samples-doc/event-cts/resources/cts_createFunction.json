@@ -1,0 +1,34 @@
+{
+  "cts": {
+    "request": {},
+    "trace_id": "f828ab77-d993-11f0-b09f-35adcfa25f3b",
+    "code": 0,
+    "trace_name": "createFunction",
+    "resource_type": "Functions",
+    "trace_rating": "normal",
+    "api_version": "",
+    "message": "POST /v2/d52e41d2434941b194ce3f91b1b12f8a/fgs/functions, create function[test4]",
+    "source_ip": "62.156.151.4",
+    "domain_id": "e51dfca1c18747919f6c16af2721f35d",
+    "service_type": "FunctionGraph",
+    "trace_type": "ConsoleAction",
+    "project_id": "d52e41d2434941b194ce3f91b1b12f8a",
+    "read_only": false,
+    "response": {},
+    "resource_id": "test4",
+    "trace_status": "normal",
+    "operation_id": "CreateFunction",
+    "resource_account_id": "",
+    "time": 1765788999507,
+    "resource_name": "test4",
+    "record_time": 1765788999507,
+    "user": {
+      "domain": {
+        "name": "OTC00000000001000100974",
+        "id": "e51dfca1c18747919f6c16af2721f35d"
+      },
+      "name": "harald",
+      "id": "e14aed517380466cac2d109877a5ac6b"
+    }
+  }
+}

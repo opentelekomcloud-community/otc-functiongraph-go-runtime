@@ -1,0 +1,7 @@
+	  function_name="doc-sample-event-s3obs-thumbnail-go"
+	  function_handler_name="example"
+    #function_initializer_name = "s3obsThumbnail::src.Program::Initializer"
+		function_runtime="Go1.x"
+		zip_file_local="../deploy.zip"
+		prefix="go" 
+		tag_app_group="go-doc-sample-event-s3obs-thumbnail"

@@ -1,0 +1,3 @@
+FUNCTION_ARN: urn:fss:eu-de:d52e41d2434941b194ce3f91b1b12f8a:function:default:go_doc-sample-event-s3obs-thumbnail-go
+OBS_INPUT_BUCKET: go-doc-sample-event-s3obs-thumbnail-go-images
+OBS_OUTPUT_BUCKET: go-doc-sample-event-s3obs-thumbnail-go-images-output  

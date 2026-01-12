@@ -11,33 +11,28 @@ into other systems. For the use of LTS log triggers, please refer to
 Example LTS Event
 -----------------
 
-.. code-block:: json
+.. literalinclude:: /../../samples-doc/event-lts/resources/lts_event.json
+    :language: json
+    :caption: :github_repo_master:`lts_event.json <samples-doc/event-lts/resources/lts_event.json>`
 
-   {
-     "lts": {
-       "data": "=="
-     }
-   }
 
 Parameter description
 ---------------------
 
 .. list-table::
    :header-rows: 1
-   :widths: 20 15 25 40
+   :widths: 20 15 40
 
    * - Parameter
      - Type
-     - Example Value
      - Description
    * - data
      - String
-     - Reference examples
      - Base64 encoded data
 
 Example
 -------
 
-.. literalinclude:: /../../samples-events/lts/handler.go
+.. literalinclude:: /../../samples-doc/event-lts/src/handler.go
     :language: go
-    :caption: :github_repo_master:`handler.go <samples-events/lts/handler.go>`
+    :caption: :github_repo_master:`handler.go <samples-doc/event-lts/src/handler.go>`

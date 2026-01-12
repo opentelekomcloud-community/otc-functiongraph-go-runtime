@@ -10,7 +10,8 @@ Introduction
 
 This chapter describes how to deploy services on FunctionGraph using Go.
 
-HTTP functions do not support direct code deployment using Go.
+HTTP functions do not support direct code deployment using Go in web console.
+
 This section uses binary conversion as an example to describe how to
 deploy Go programs on FunctionGraph.
 
@@ -23,11 +24,11 @@ Procedure
 Building a code package
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Create the source file main.go. The code is as follows:
+Create the source file **main.go**. The code is as follows:
 
-.. literalinclude:: /../../samples-doc/buildinghttpfunction/main.go
+.. literalinclude:: /../../samples-doc/buildinghttpfunction/src/main.go
     :language: go
-    :caption: :github_repo_master:`main.go <samples-doc/buildinghttpfunction/main.go>`
+    :caption: :github_repo_master:`main.go <samples-doc/buildinghttpfunction/src/main.go>`
 
 
 In **main.go**, an HTTP server is started using port **8000**,
@@ -46,37 +47,72 @@ The content is as follows:
 Compiling and packaging
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To ease building and packaging, create a Makefile in the project root directory
-like the following:
+.. tabs::
 
-.. literalinclude:: /../../samples-doc/buildinghttpfunction/Makefile
-    :language: Makefile
-    :caption: :github_repo_master:`Makefile <samples-doc/buildinghttpfunction/Makefile>`
+   .. tab:: Linux
 
-The Makefile automates the build process for your Go FunctionGraph HTTP
-function.
+        To ease building and packaging, create a Makefile in the project root directory
+        like the following:
 
-You can run the **make build** command in the project root directory
-to compile your function code and generate the executable file named
-**go-http-demo** in the **target** directory.
+        .. literalinclude:: /../../samples-doc/buildinghttpfunction/Makefile
+            :language: Makefile
+            :caption: :github_repo_master:`Makefile <samples-doc/buildinghttpfunction/Makefile>`
 
-The **make zip** command creates a deployment package named **deploy.zip**
-that contains the executable file and a **bootstrap** file.
+        The Makefile automates the build process for your Go FunctionGraph HTTP
+        function.
 
-The **bootstrap** file is required by FunctionGraph to identify
-the entry file of the function.
+        You can run the **make build** command in the project root directory
+        to compile your function code and generate the executable file named
+        **go-http-demo** in the **target** directory.
 
-.. code-block::
+        The **make zip** command creates a deployment package named **deploy.zip**
+        that contains the executable file and a **bootstrap** file.
 
-    /opt/function/code/go-http-demo
+        The **bootstrap** file is required by FunctionGraph to identify
+        the entry file of the function.
+
+        .. code-block::
+          :caption: bootstrap file
+
+          /opt/function/code/go-http-demo
+
+
+   .. tab:: Windows
+
+        To ease building and packaging, create a build.cmd file in the project root directory
+        like the following:
+
+        .. literalinclude:: /../../samples-doc/buildinghttpfunction/build.cmd
+            :language: bat
+            :caption: :github_repo_master:`build.cmd <samples-doc/buildinghttpfunction/build.cmd>`
+
+        Run the **build.cmd** script in the project root directory to compile your function code
+        and generate the executable file named **go-http-demo** and the **bootstrap** file in
+        the **target_win** directory.
+
+        The **bootstrap** file is required by FunctionGraph to identify
+        the entry file of the function.
+
+        .. code-block::
+          :caption: bootstrap file
+
+          /opt/function/code/go-http-demo
+
+      The script also creates a deployment package named **go-http-demo.zip** in the project
+      root directory using the Windows tar.exe command.
 
 You can then upload this deployment package to FunctionGraph.
 
 
-Testing using console
-^^^^^^^^^^^^^^^^^^^^^
+Creating an HTTP function and uploading code
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**Example Test Event**
+Create an HTTP function and upload the **go-http-demo.zip** package.
+For details, see :otc_fg_umn:`Creating an HTTP Function <building_functions/creating_a_function_from_scratch/creating_an_http_function.html#procedure>`
+
+
+Invocation test using console and test event
+""""""""""""""""""""""""""""""""""""""""""""""
 
 In FunctionGraph console, you can create a test event to test the
 HTTP function.
@@ -116,3 +152,35 @@ The **body** field contains the Base64-encoded string of
 **"nice to meet you"**.
 
 The **statusCode** field indicates that the request is processed successfully.
+
+
+Creating an APIG (Dedicated) trigger
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Create an APIG (dedicated) trigger by referring to Using an APIG Trigger.
+Set:
+-  **Security Authentication** to **None** for debugging
+-  **Environment** to **RELEASE**
+-  **Protocol** to **HTTPS**.
+-  **Method** to **ANY**.
+
+For details, see :otc_fg_umn:`Using an APIG Dedicated Trigger <creating_triggers/using_an_apig_dedicated_trigger.html#functiongraph-01-0204>`
+
+.. figure:: apig_dedicated.png
+    :scale: 100 %
+    :alt: Trigger settings
+
+    Trigger settings
+
+Invocation test using APIG trigger and browser
+""""""""""""""""""""""""""""""""""""""""""""""
+Copy the URL of the APIG trigger and add **/hello** to the address box of the browser.
+
+The following information is displayed:
+
+.. figure:: invocationtest.png
+    :scale: 100 %
+    :alt: Result
+
+    Result in browser
+

@@ -16,15 +16,16 @@ A typical Go FunctionGraph project is typically structured as follows:
   :caption: Project structure
 
   /project-root
+   ├─ src
+   |  └─ main.go
    ├─ go.mod
    ├─ go.sum
-   ├─ main.go
    └─ Makefile
 
 The main logic for the function resides in Go file **main.go**.
 When deploying to FunctionGraph make sure to specify the correct handler:
 
-The name of the handler is the **name of the Go executable** file.
+The name of the handler is the **name of the Go executable** (here: main) file.
 
 
 Example code for Go FunctionGraph function
@@ -55,8 +56,14 @@ Include this package with the following go get command:
 
 .. code-block:: bash
 
+    # enable Go modules to get specific version of the runtime package
+    go env -w GO111MODULE=on
+
+    # install FunctionGraph Go runtime package for latest version
     go get github.com/opentelekomcloud-community/otc-functiongraph-go-runtime
 
+    # or for a specified version
+    go get github.com/opentelekomcloud-community/otc-functiongraph-go-runtime@v0.0.1
 
 Your function code should live in a Go file. In the following example,
 we name this file **main.go**. In this file, you implement your core function
@@ -68,9 +75,11 @@ Example Go FunctionGraph function code
 
 The following example shows a simple FunctionGraph function written in Go.
 
-.. literalinclude:: /../../samples-doc/example/main.go
+.. literalinclude:: /../../samples-doc/example/src/main.go
     :language: go
-    :caption: :github_repo_master:`main.go <samples-doc/example/main.go>`
+    :caption: :github_repo_master:`main.go <samples-doc/example/src/main.go>`
+
+Handler name is: **main**
 
 
 Syntax for creating a handler function in Go:
@@ -120,21 +129,39 @@ Return values of the handler function
 
          The **Content-Type** header of the HTTP response is set to **application/json**.
 
+.. tabs::
 
-.. literalinclude:: /../../samples-doc/example/Makefile
-    :language: Makefile
-    :caption: :github_repo_master:`Makefile <samples-doc/example/Makefile>`
+   .. tab:: Linux
 
-The Makefile automates the build process for your Go FunctionGraph function.
+      .. literalinclude:: /../../samples-doc/example/Makefile
+          :language: Makefile
+          :caption: :github_repo_master:`Makefile <samples-doc/example/Makefile>`
 
-You can run the **make build** command in the project root directory
-to compile your function code and generate the executable file named
-**example**.
+      The Makefile automates the build process for your Go FunctionGraph function.
 
-The **make zip** command creates a deployment package named **deploy.zip**
-that contains the executable file.
+      You can run the **make build** command in the project root directory
+      to compile your function code and generate the executable file named
+      **example**.
+
+      The **make zip** command creates a deployment package named **deploy.zip**
+      that contains the executable file.
+
+   .. tab:: Windows
+
+      .. literalinclude:: /../../samples-doc/example/build.cmd
+         :language: bat
+         :caption: :github_repo_master:`build.cmd <samples-doc/example/build.cmd>`
+
+      Run the **build.cmd** script in the project root directory to compile your function code
+      and generate the executable file named **example** in the **target_win** directory.
+
+      The script also creates a deployment package named **deploy.zip** in the project
+      root directory using the Windows tar.exe command.
 
 You can then upload this deployment package to FunctionGraph.
+
+For general deployment instructions see
+:otc_fg_umn:`Building Functions<building_functions/index.html>` in User Guide.
 
 
 Accessing and using the FunctionGraph context object

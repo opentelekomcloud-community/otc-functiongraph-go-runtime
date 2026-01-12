@@ -6,6 +6,7 @@ Event Function
 
    Handler <handler>
    Context <context>
+   Initializer <initializer>
    Trigger Events <trigger_events/_index>
 
 Event functions can be configured with event triggers and integrate
@@ -21,7 +22,7 @@ to help you develop Go event functions:
 
   This library provides the Context structure, which contains
   the runtime information of the function and provides
-  methods to obtain the runtime information. 
+  methods to obtain the runtime information.
 
 - :github_repo_master:`github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/pkg/runtime </go-runtime/pkg/runtime>`
 
