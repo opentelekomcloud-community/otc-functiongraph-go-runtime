@@ -1,4 +1,4 @@
-module sample-obss3-thumbnail
+module sample-sdk-ecs
 
 go 1.17
 

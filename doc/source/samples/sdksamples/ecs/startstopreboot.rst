@@ -59,8 +59,8 @@ command:
     For Windows Subsystem for Linux (WSL) or Linux/MacOS systems use following makefile:
 
      .. literalinclude:: /../../samples-doc/sdk-ecs/Makefile
-        :language: text
-         :caption: /Makefile
+        :language: makefile
+        :caption: /Makefile
 
      Then run the command:
 

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 
@@ -19,8 +20,50 @@ func ApigTest(payload []byte, ctx context.RuntimeContext) (interface{}, error) {
 		return "invalid data", err
 	}
 	ctx.GetLogger().Logf("payload:%s", apigEvent.String())
+
+	// body processing example
+
+	var body string
+
+	if apigEvent.IsBase64Encoded {
+		body = apigEvent.GetRawBody()
+		ctx.GetLogger().Logf("Decoded body: %s", body)
+	} else {
+		body = apigEvent.Body
+		ctx.GetLogger().Logf("Body: %s", body)
+	}
+
+	// path parameters example
+	pathParameters := apigEvent.PathParameters
+	if pathParameters != nil {
+
+		for key, value := range pathParameters {
+			ctx.GetLogger().Logf("Path parameter - %s: %s", key, value)
+		}
+	}
+
+	// headers example
+	headers := apigEvent.Headers
+	if headers != nil {
+		for key, value := range headers {
+			ctx.GetLogger().Logf("Header - %s: %s", key, value)
+		}
+	}
+
+	var returnBody string
+
+	if apigEvent.IsBase64Encoded {
+		returnBodyBytes, err := base64.StdEncoding.DecodeString(body)
+		if err != nil {
+			return nil, err
+		}
+		returnBody = string(returnBodyBytes)
+	} else {
+		returnBody = body
+	}
+
 	apigResp := apig.APIGTriggerResponse{
-		Body: apigEvent.String(),
+		Body: returnBody,
 		Headers: map[string]string{
 			"content-type": "application/json",
 		},

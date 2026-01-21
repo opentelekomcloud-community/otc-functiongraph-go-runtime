@@ -9,6 +9,10 @@ import (
 	"github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/pkg/runtime"
 )
 
+func hi() {
+	fmt.Println("hi")
+}
+
 // Example for Cloud Trace Service handler
 func CtsTest(payload []byte, ctx context.RuntimeContext) (interface{}, error) {
 	var ctsEvent cts.CTSTriggerEvent

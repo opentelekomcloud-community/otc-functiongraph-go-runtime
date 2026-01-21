@@ -13,7 +13,7 @@ The function reads the following user data parameters:
 - ECS_ACTION: The action to be performed on the instance (start, stop, reboot)
 - ECS_ACTION_TYPE: The type of action for stop and reboot (SOFT, HARD) (not required for start action)
 
-The function uses the security credentials from the runtime context to sign the API requests.
+The function uses the security credentials (temporary AK/SK/Token) from the runtime context to sign the API requests.
 
 */
 
