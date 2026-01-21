@@ -40,7 +40,7 @@ func InvokeAsync_UsernamePassword() {
 		"key": "Hello World of OTC",
 	}
 
-	funcURN := fmt.Sprintf("urn:fss:%s:%s:function:default:DefaultPython3_10:latest", region, provider.ProjectID)
+	funcURN := fmt.Sprintf("urn:fss:%s:%s:function:%s:%s:%s", region, provider.ProjectID, functionApp, functionName, functionVersion)
 	fmt.Println("Function URN: " + funcURN)
 
 	jsonString, err := json.Marshal(body)

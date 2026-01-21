@@ -42,7 +42,7 @@ func InvokeSync_UsernamePassword() {
 		"test": map[string]int{"a": 1, "b": 2},
 	}
 
-	funcURN := fmt.Sprintf("urn:fss:%s:%s:function:default:DefaultPython3_10:latest", region, provider.ProjectID)
+	funcURN := fmt.Sprintf("urn:fss:%s:%s:function:%s:%s:%s", region, provider.ProjectID, functionApp, functionName, functionVersion)
 	fmt.Println("Function URN: " + funcURN)
 
 	jsonString, err := json.Marshal(body)

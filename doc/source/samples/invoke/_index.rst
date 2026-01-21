@@ -58,7 +58,7 @@ Example FunctionGraph written in python
 Deploy this FunctionGraph as follows:
 
 - Type: "Event Function":
-- Name: "DefaultPython3_10"
+- Name: "DefaultPython3_10_From_Go_SDK"
 - Agency: "Use no agency"
 - Runtime: "python 3.10"
 - Application: "default"

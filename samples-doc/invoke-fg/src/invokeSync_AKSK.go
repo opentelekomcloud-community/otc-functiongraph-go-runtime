@@ -36,11 +36,6 @@ func InvokeSync_AKSK() error {
 	// FunctionGraph endpoint
 	fgEndpoint := fmt.Sprintf("https://functiongraph.%s.otc.t-systems.com", region)
 
-	// Function name/version and application
-	functionName := "DefaultPython3_10"
-	functionVersion := "latest"
-	functionApp := "default"
-
 	functionURN := fmt.Sprintf("urn:fss:%s:%s:function:%s:%s:%s", region, projectID, functionApp, functionName, functionVersion)
 	invokeURI := fmt.Sprintf("%s/v2/%s/fgs/functions/%s/invocations", fgEndpoint, projectID, functionURN)
 

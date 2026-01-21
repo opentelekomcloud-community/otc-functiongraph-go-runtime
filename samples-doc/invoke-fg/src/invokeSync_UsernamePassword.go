@@ -96,10 +96,6 @@ func InvokeSync_UsernamePassword() error {
 
 	fgEndpoint := fmt.Sprintf("https://functiongraph.%s.otc.t-systems.com", region)
 
-	functionApp := "default"
-	functionName := "DefaultPython3_10"
-	functionVersion := "latest"
-
 	functionURN := fmt.Sprintf("urn:fss:%s:%s:function:%s:%s:%s", region, projectID, functionApp, functionName, functionVersion)
 	invokeURI := fmt.Sprintf("%s/v2/%s/fgs/functions/%s/invocations", fgEndpoint, projectID, functionURN)
 
