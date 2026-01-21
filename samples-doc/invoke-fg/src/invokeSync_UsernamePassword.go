@@ -1,4 +1,4 @@
-package main
+package invoke_fg
 
 import (
 	"bytes"
@@ -69,8 +69,8 @@ func getTokenUserNamePassword(userName, userPassword, domainName, authURL, proje
 	return token, nil
 }
 
-// callFunctionGraphUserNamePassword calls FunctionGraph function using username and password authentication
-func callFunctionGraphUserNamePassword() error {
+// calls FunctionGraph function using username and password authentication
+func InvokeSync_UsernamePassword() error {
 	userName := os.Getenv("OTC_USER_NAME")
 	userPassword := os.Getenv("OTC_USER_PASSWORD")
 	domainName := os.Getenv("OTC_DOMAIN_NAME")
@@ -80,7 +80,8 @@ func callFunctionGraphUserNamePassword() error {
 
 	token, err := getTokenUserNamePassword(userName, userPassword, domainName, authURL, projectID)
 	if err != nil {
-		return fmt.Errorf("failed to get token: %w", err)
+		fmt.Printf("failed to get token: %s", err)
+		panic(err)
 	}
 
 	fmt.Println("Obtained Token:", token)
@@ -111,12 +112,14 @@ func callFunctionGraphUserNamePassword() error {
 
 	requestBody, err := json.Marshal(body)
 	if err != nil {
-		return fmt.Errorf("error marshaling request body: %w", err)
+		fmt.Printf("error marshaling request body: %s", err)
+		panic(err)
 	}
 
 	req, err := http.NewRequest("POST", invokeURI, bytes.NewBuffer(requestBody))
 	if err != nil {
-		return fmt.Errorf("error creating request: %w", err)
+		fmt.Printf("error creating request: %s", err)
+		panic(err)
 	}
 
 	// Set headers
@@ -128,7 +131,8 @@ func callFunctionGraphUserNamePassword() error {
 	// Send the request
 	resp, err := httpClientUserNamePassword.Do(req)
 	if err != nil {
-		return fmt.Errorf("request error: %w", err)
+		fmt.Printf("request error: %s", err)
+		panic(err)
 	}
 	defer resp.Body.Close()
 
@@ -164,12 +168,4 @@ func callFunctionGraphUserNamePassword() error {
 	}
 
 	return nil
-}
-
-// Uncomment to run as standalone program
-func main() {
-	if err := callFunctionGraphUserNamePassword(); err != nil {
-		fmt.Printf("Error: %v\n", err)
-		os.Exit(1)
-	}
 }

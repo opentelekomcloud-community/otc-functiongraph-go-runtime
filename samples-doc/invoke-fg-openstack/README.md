@@ -1,4 +1,11 @@
-# Samples on how to call FunctionGraph function using Go
+# Samples on how to call FunctionGraph function using Go and GopherTelekomCloud
+
+## GopherTelekomCloud
+
+GopherTelekomCloud is a OpenTelekomCloud clouds Go SDK. 
+
+For details see:
+[goperhtelekomcloud on Github](https://github.com/opentelekomcloud/gophertelekomcloud)
 
 ## Prerequisites
 
@@ -21,12 +28,7 @@
    * Handler: index.handler
    * Application: default
   
-## Call Functiongraph using Username and Password
+## Call Functiongraph async using Username and Password
 
-See src/invokeUsernamePassword.go
-
-
-## Call Functiongraph using AK/SK
-
-See src/invokeAKSK.go
+See src/invokeAsync_UsernamePassword.go
 

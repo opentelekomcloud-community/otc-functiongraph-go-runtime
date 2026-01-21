@@ -1,4 +1,4 @@
-package main
+package invoke_fg
 
 //
 // This sample shows how to invoke a FunctionGraph function using AK/SK authentication.
@@ -24,8 +24,8 @@ import (
 
 var httpClientAKSK = &http.Client{}
 
-// callFunctionGraphAKSK calls FunctionGraph function using AK/SK authentication
-func callFunctionGraphAKSK() error {
+// calls FunctionGraph function using AK/SK authentication
+func InvokeSync_AKSK() error {
 	fmt.Println("Calling FunctionGraph function with Access Key and Secret Key...")
 
 	projectID := os.Getenv("OTC_SDK_PROJECTID")
@@ -61,13 +61,15 @@ func callFunctionGraphAKSK() error {
 
 	requestBody, err := json.Marshal(body)
 	if err != nil {
-		return fmt.Errorf("error marshaling request body: %w", err)
+		fmt.Printf("error marshaling request body: %s", err)
+		panic(err)
 	}
 
 	// Create request
 	req, err := http.NewRequest("POST", invokeURI, bytes.NewBuffer(requestBody))
 	if err != nil {
-		return fmt.Errorf("error creating request: %w", err)
+		fmt.Printf("error creating request: %s", err)
+		panic(err)
 	}
 
 	// Add required headers
@@ -91,7 +93,8 @@ func callFunctionGraphAKSK() error {
 	// Send the request
 	resp, err := httpClientAKSK.Do(req)
 	if err != nil {
-		return fmt.Errorf("request error: %w", err)
+		fmt.Printf("request error: %s", err)
+		panic(err)
 	}
 	defer resp.Body.Close()
 
@@ -99,7 +102,8 @@ func callFunctionGraphAKSK() error {
 
 	responseBody, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return fmt.Errorf("error reading response: %w", err)
+		fmt.Printf("error reading response: %s", err)
+		panic(err)
 	}
 
 	// Handle response based on X-CFF-Request-Version
@@ -107,7 +111,8 @@ func callFunctionGraphAKSK() error {
 		// OutputType is json
 		var data map[string]interface{}
 		if err := json.Unmarshal(responseBody, &data); err != nil {
-			return fmt.Errorf("error parsing response: %w", err)
+			fmt.Printf("error parsing response: %s", err)
+			panic(err)
 		}
 
 		fmt.Println("---- Result ----")
@@ -128,12 +133,4 @@ func callFunctionGraphAKSK() error {
 	}
 
 	return nil
-}
-
-// Uncomment to run as standalone program
-func main() {
-	if err := callFunctionGraphAKSK(); err != nil {
-		fmt.Printf("Error: %v\n", err)
-		os.Exit(1)
-	}
 }
