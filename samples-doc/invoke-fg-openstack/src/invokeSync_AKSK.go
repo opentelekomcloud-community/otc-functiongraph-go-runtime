@@ -12,12 +12,15 @@ import (
 )
 
 func InvokeSync_AKSK() {
+
+	region := os.Getenv("OTC_SDK_REGION")
+
 	opts := golangsdk.AKSKAuthOptions{
 		IdentityEndpoint: "https://iam.eu-de.otc.t-systems.com/v3",
 		AccessKey:        os.Getenv("OTC_SDK_AK"),
 		SecretKey:        os.Getenv("OTC_SDK_SK"),
 		ProjectId:        os.Getenv("OTC_SDK_PROJECTID"),
-		Region:           os.Getenv("OTC_TENANT_NAME"),
+		Region:           region,
 	}
 
 	provider, err := openstack.AuthenticatedClient(opts)
@@ -27,7 +30,7 @@ func InvokeSync_AKSK() {
 	}
 
 	client, err := openstack.NewFuncGraph(provider, golangsdk.EndpointOpts{
-		Region: "eu-de",
+		Region: region,
 	})
 	if err != nil {
 		fmt.Printf("Failed to create FunctionGraph client: %v", err)
@@ -39,7 +42,7 @@ func InvokeSync_AKSK() {
 		"test": map[string]int{"a": 1, "b": 2},
 	}
 
-	funcURN := fmt.Sprintf("urn:fss:eu-de:%s:function:default:DefaultPython3_10:latest", provider.ProjectID)
+	funcURN := fmt.Sprintf("urn:fss:%s:%s:function:default:DefaultPython3_10:latest", region, provider.ProjectID)
 	fmt.Println("Function URN: " + funcURN)
 
 	jsonString, err := json.Marshal(body)

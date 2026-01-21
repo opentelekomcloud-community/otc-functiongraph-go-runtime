@@ -15,3 +15,9 @@ func TestInvokeSync_AKSK(t *testing.T) {
 func TestInvokeSync_UsernamePassword(t *testing.T) {
 	InvokeSync_UsernamePassword()
 }
+
+// to run the test:
+// go test -run TestInvokeAsync_UsernamePassword
+func TestInvokeAsync_UsernamePassword(t *testing.T) {
+	InvokeAsync_UsernamePassword()
+}

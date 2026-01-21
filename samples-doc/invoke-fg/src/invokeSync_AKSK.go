@@ -6,7 +6,7 @@ package invoke_fg
 //
 // Before running the sample, ensure that you have set the following environment variables:
 // - OTC_SDK_PROJECTID: Your OpenTelekomCloud Project ID
-// - OTC_TENANT_NAME: Your OpenTelekomCloud region (tenant name)
+// - OTC_SDK_REGION: Your OpenTelekomCloud region (e.g., "eu-de")
 // - OTC_SDK_AK: Your Access Key
 // - OTC_SDK_SK: Your Secret Key
 //
@@ -29,7 +29,7 @@ func InvokeSync_AKSK() error {
 	fmt.Println("Calling FunctionGraph function with Access Key and Secret Key...")
 
 	projectID := os.Getenv("OTC_SDK_PROJECTID")
-	region := os.Getenv("OTC_TENANT_NAME")
+	region := os.Getenv("OTC_SDK_REGION")
 	ak := os.Getenv("OTC_SDK_AK")
 	sk := os.Getenv("OTC_SDK_SK")
 

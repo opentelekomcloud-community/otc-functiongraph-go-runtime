@@ -12,6 +12,9 @@ import (
 )
 
 func InvokeSync_UsernamePassword() {
+
+	region := os.Getenv("OTC_SDK_REGION")
+
 	opts := golangsdk.AuthOptions{
 		IdentityEndpoint: "https://iam.eu-de.otc.t-systems.com/v3",
 		Username:         os.Getenv("OTC_USER_NAME"),
@@ -27,7 +30,7 @@ func InvokeSync_UsernamePassword() {
 	}
 
 	client, err := openstack.NewFuncGraph(provider, golangsdk.EndpointOpts{
-		Region: "eu-de",
+		Region: region,
 	})
 	if err != nil {
 		fmt.Printf("Failed to create FunctionGraph client: %v", err)
@@ -39,7 +42,7 @@ func InvokeSync_UsernamePassword() {
 		"test": map[string]int{"a": 1, "b": 2},
 	}
 
-	funcURN := fmt.Sprintf("urn:fss:eu-de:%s:function:default:DefaultPython3_10:latest", provider.ProjectID)
+	funcURN := fmt.Sprintf("urn:fss:%s:%s:function:default:DefaultPython3_10:latest", region, provider.ProjectID)
 	fmt.Println("Function URN: " + funcURN)
 
 	jsonString, err := json.Marshal(body)

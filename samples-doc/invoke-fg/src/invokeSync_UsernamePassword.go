@@ -1,5 +1,13 @@
 package invoke_fg
 
+// Before running the sample, ensure that you have set the following environment variables:
+// - OTC_USER_NAME: Your OpenTelekomCloud username
+// - OTC_USER_PASSWORD: Your OpenTelekomCloud user password
+// - OTC_DOMAIN_NAME: Your OpenTelekomCloud domain name
+// - OTC_SDK_PROJECTID: Your OpenTelekomCloud Project ID
+// - OTC_SDK_REGION: Your OpenTelekomCloud region (e.g., "eu-de")
+// - OTC_IAM_ENDPOINT: Your OpenTelekomCloud IAM endpoint URL
+
 import (
 	"bytes"
 	"encoding/json"
@@ -75,7 +83,7 @@ func InvokeSync_UsernamePassword() error {
 	userPassword := os.Getenv("OTC_USER_PASSWORD")
 	domainName := os.Getenv("OTC_DOMAIN_NAME")
 	projectID := os.Getenv("OTC_SDK_PROJECTID")
-	region := os.Getenv("OTC_TENANT_NAME")
+	region := os.Getenv("OTC_SDK_REGION")
 	authURL := os.Getenv("OTC_IAM_ENDPOINT")
 
 	token, err := getTokenUserNamePassword(userName, userPassword, domainName, authURL, projectID)

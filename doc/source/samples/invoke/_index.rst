@@ -29,7 +29,7 @@ Needed environment variables set
      - Description
    * - OTC_SDK_PROJECTID
      - Project ID
-   * - OTC_TENANT_NAME
+   * - OTC_SDK_REGION
      - Region, e.g. "eu-de"
    * - OTC_SDK_AK
      - Access Key
