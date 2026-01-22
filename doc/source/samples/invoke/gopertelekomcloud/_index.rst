@@ -1,6 +1,10 @@
 Calling FunctionGraph using gopertelekomcloud
 ==============================================
 
+Source for this sample can be found in:
+:github_repo_master:`/samples-doc/invoke-fg-openstack/src/invokeSync_UsernamePassword.go <samples-doc/invoke-fg-openstack/src/invokeSync_UsernamePassword.go>`.
+
+
 For details on gopertelekomcloud,
 see `gopertelekomcloud <https://github.com/opentelekomcloud/gophertelekomcloud>`_  on Github.
 
@@ -14,8 +18,15 @@ See environment variables section in: :ref:`ref_invoke-prerequisites`
 Deployed FunctionGraph Event Function
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can deploy the function using the provided Go code
-using gopertelekomcloud.
+Method A: Deploy using console
+""""""""""""""""""""""""""""""""""""
+
+Deploy the function manually as described in :ref:`ref_invoke-prerequisites`
+using the OpenTelekomCloud Console.
+
+Method B: Deploy using gopertelekomcloud
+""""""""""""""""""""""""""""""""""""
+Or deploy the function using the provided Go code using gopertelekomcloud.
 
 .. code-block:: bash
 
@@ -46,8 +57,7 @@ Source for this sample can be found in:
 Call Functiongraph using Username and Password synchronously
 -------------------------------------------------------------
 
-Source for this sample can be found in:
-:github_repo_master:`/samples-doc/invoke-fg-openstack/src/invokeSync_UsernamePassword.go <samples-doc/invoke-fg-openstack/src/invokeSync_UsernamePassword.go>`.
+
 
 
 To run the sample, execute:
@@ -70,3 +80,8 @@ To run the sample, execute:
 
     cd samples-doc/invoke-fg-openstack/src
     go test -run TestInvokeSync_AKSK
+
+
+.. note::
+
+   Don't forget to clean up the deployed resources after testing.

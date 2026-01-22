@@ -17,66 +17,6 @@ import (
 	"os"
 )
 
-var httpClientUserNamePassword = &http.Client{}
-
-// getTokenUserNamePassword retrieves an authentication token using username and password
-func getTokenUserNamePassword(userName, userPassword, domainName, authURL, projectID string) (string, error) {
-	tokenURI := authURL + "/auth/tokens?v3/auth/tokens?nocatalog=true"
-
-	// Build auth request body
-	authBody := map[string]interface{}{
-		"auth": map[string]interface{}{
-			"identity": map[string]interface{}{
-				"methods": []string{"password"},
-				"password": map[string]interface{}{
-					"user": map[string]interface{}{
-						"name":     userName,
-						"password": userPassword,
-						"domain": map[string]interface{}{
-							"name": domainName,
-						},
-					},
-				},
-			},
-			"scope": map[string]interface{}{
-				"domain": map[string]interface{}{
-					"name": domainName,
-				},
-				"project": map[string]interface{}{
-					"id": projectID,
-				},
-			},
-		},
-	}
-
-	requestBody, err := json.Marshal(authBody)
-	if err != nil {
-		return "", fmt.Errorf("error marshaling auth body: %w", err)
-	}
-
-	req, err := http.NewRequest("POST", tokenURI, bytes.NewBuffer(requestBody))
-	if err != nil {
-		return "", fmt.Errorf("error creating request: %w", err)
-	}
-	req.Header.Set("Content-Type", "application/json")
-
-	resp, err := httpClientUserNamePassword.Do(req)
-	if err != nil {
-		return "", fmt.Errorf("error getting token: %w", err)
-	}
-	defer resp.Body.Close()
-
-	token := resp.Header.Get("X-Subject-Token")
-
-	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		responseText, _ := io.ReadAll(resp.Body)
-		fmt.Printf("Error getting token: %s\n", string(responseText))
-		return token, fmt.Errorf("token request failed with status: %d", resp.StatusCode)
-	}
-
-	return token, nil
-}
-
 // calls FunctionGraph function using username and password authentication
 func InvokeSync_UsernamePassword() error {
 	userName := os.Getenv("OTC_USER_NAME")
@@ -86,7 +26,9 @@ func InvokeSync_UsernamePassword() error {
 	region := os.Getenv("OTC_SDK_REGION")
 	authURL := os.Getenv("OTC_IAM_ENDPOINT")
 
-	token, err := getTokenUserNamePassword(userName, userPassword, domainName, authURL, projectID)
+	var httpClient = &http.Client{}
+
+	token, err := getTokenUserNamePassword(*httpClient, userName, userPassword, domainName, authURL, projectID)
 	if err != nil {
 		fmt.Printf("failed to get token: %s", err)
 		panic(err)
@@ -133,7 +75,7 @@ func InvokeSync_UsernamePassword() error {
 	req.Header.Set("X-CFF-Request-Version", xCffRequestVersion)
 
 	// Send the request
-	resp, err := httpClientUserNamePassword.Do(req)
+	resp, err := httpClient.Do(req)
 	if err != nil {
 		fmt.Printf("request error: %s", err)
 		panic(err)

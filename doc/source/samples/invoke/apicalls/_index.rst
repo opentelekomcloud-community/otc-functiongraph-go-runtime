@@ -1,10 +1,51 @@
 Calling FunctionGraph using API calls
 ==================================================
 
+Source for this sample can be found in:
+:github_repo_master:`/samples-doc/invoke-fg <samples-doc/invoke-fg>`.
+
+For details on API calls, see:
+
+- `OpenTelekomCloud API Documentation <https://docs.otc.t-systems.com/function-graph/api-ref/api/function_invocation/index.html>`_.
+
 Prerequisites
 -------------
 
-See :ref:`ref_invoke-prerequisites`
+Environment Variables
+^^^^^^^^^^^^^^^^^^^^^^^^^
+See environment variables section in: :ref:`ref_invoke-prerequisites`
+
+Deployed FunctionGraph Event Function
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Method A: Deploy using console
+""""""""""""""""""""""""""""""""""""
+
+Deploy the function manually as described in :ref:`ref_invoke-prerequisites`
+using the OpenTelekomCloud Console.
+
+Method B: Deploy using API calls
+""""""""""""""""""""""""""""""""""""
+
+Or deploy the function using the provided Go code using API calls.
+
+.. code-block:: bash
+
+    cd samples-doc/invoke-fg/src
+    go test -run TestCreateFunction_UsernamePassword
+
+this will create function with code and parameters from:
+
+.. literalinclude:: /../../samples-doc/invoke-fg/src/functionConfig.go
+   :language: go
+   :caption: samples-doc/invoke-fg/src/functionConfig.go
+
+After testing, you can delete the function using:
+
+.. code-block:: bash
+
+    cd samples-doc/invoke-fg/src
+    go test -run TestDeleteFunction_UsernamePassword
 
 Call Functiongraph using Username and Password synchronously
 ------------------------------------------------------------
@@ -43,3 +84,7 @@ To run the sample, execute:
 
     cd samples-doc/invoke-fg/src
     go test -run TestInvokeSync_AKSK
+
+.. note::
+
+   Don't forget to clean up the deployed resources after testing.

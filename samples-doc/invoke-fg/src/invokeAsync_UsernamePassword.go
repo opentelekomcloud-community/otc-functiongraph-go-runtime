@@ -18,7 +18,9 @@ func InvokeAsync_UsernamePassword() error {
 	region := os.Getenv("OTC_SDK_REGION")
 	authURL := os.Getenv("OTC_IAM_ENDPOINT")
 
-	token, err := getTokenUserNamePassword(userName, userPassword, domainName, authURL, projectID)
+	var httpClient = &http.Client{}
+
+	token, err := getTokenUserNamePassword(*httpClient, userName, userPassword, domainName, authURL, projectID)
 	if err != nil {
 		fmt.Printf("failed to get token: %s", err)
 		panic(err)
@@ -53,7 +55,7 @@ func InvokeAsync_UsernamePassword() error {
 	req.Header.Set("X-AUTH-Token", token)
 
 	// Send the request
-	resp, err := httpClientUserNamePassword.Do(req)
+	resp, err := httpClient.Do(req)
 	if err != nil {
 		fmt.Printf("request error: %s", err)
 		panic(err)
@@ -73,10 +75,8 @@ func InvokeAsync_UsernamePassword() error {
 	}
 
 	fmt.Println("---- Result ----")
-	if result, ok := data["result"]; ok {
-		resultJSON, _ := json.MarshalIndent(result, "", "  ")
-		fmt.Println(string(resultJSON))
-	}
+	resultJSON, _ := json.MarshalIndent(data, "", "  ")
+	fmt.Println(string(resultJSON))
 
 	return nil
 }
