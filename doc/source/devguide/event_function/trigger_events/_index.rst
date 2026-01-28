@@ -1,6 +1,9 @@
 Overview of Trigger Events
 ==============================
 
+Following is a list of event triggers that can be used for
+FunctionGraph event functions in Go:
+
 .. toctree::
    :maxdepth: 1
 
@@ -11,4 +14,3 @@ Overview of Trigger Events
    OBS Event <trigger_obs_event>
    SMN Event <trigger_smn_event>
    Timer Event <trigger_timer_event>
-

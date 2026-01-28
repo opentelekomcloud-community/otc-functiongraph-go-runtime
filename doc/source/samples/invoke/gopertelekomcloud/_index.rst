@@ -25,7 +25,8 @@ Deploy the function manually as described in :ref:`ref_invoke-prerequisites`
 using the OpenTelekomCloud Console.
 
 Method B: Deploy using gopertelekomcloud
-""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""
+
 Or deploy the function using the provided Go code using gopertelekomcloud.
 
 .. code-block:: bash

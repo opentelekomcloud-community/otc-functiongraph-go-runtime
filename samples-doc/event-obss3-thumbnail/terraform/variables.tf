@@ -30,11 +30,11 @@ variable "zip_file_local" {
 
 variable "function_runtime" {
   type    = string
-  default = "C#(.NET Core 6.0)"
+  default = "runtime_name_here"
 }
 
 # Resource tag:
 variable "tag_app_group" {
   type = string
-  default = "csharp-doc-sample-obs-thumbnail"
+  default = "tag_app_group_value"
 }

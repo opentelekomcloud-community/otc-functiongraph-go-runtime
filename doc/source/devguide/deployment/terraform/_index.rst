@@ -6,8 +6,9 @@ Deploying a function using Terraform
    :hidden:
 
    Setup Terraform <setuptf>
-   Deploy Event Function <terraform_eventfunction>
-   Deploy HTTP Function <terraform_httpfunction>
+   Deploy Event Function <terraform_event_scratch>
+   Deploy HTTP Function <terraform_http_scratch>
+   Deploy Event Function Container Image <terraform_event_container>
 
 
 To use Terraform as deployment tool, you should be familiar with
