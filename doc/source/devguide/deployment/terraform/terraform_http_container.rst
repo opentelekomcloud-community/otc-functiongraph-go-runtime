@@ -1,28 +1,30 @@
-.. _deploying_an_event_function_using_a_container_image_built_with_go:
+.. _deploying_an_http_function_using_a_container_image_built_with_go:
 
-Deploying an Event Function container Image using Terraform
+Deploying an HTTP Function container Image using Terraform
 ===============================================================
 
-This section describes on how to deploy an Event Function packed in a container image using Terraform.
+This section describes on how to deploy an HTTP Function packed in a container image using Terraform.
 
 Prerequisite
 ------------
 
 * Terraform configured according to :ref:`ref_terraform_setup`
-* Image created as described in :ref:`creating_an_event_function_using_a_container_image_built_with_go`
+* Image created as described in :ref:`creating_an_http_function_using_a_container_image_built_with_go`
+* Exiting API Gateway instance to create the trigger for the HTTP Function.
+  see section :ref:`variables.tfvars <deploying_an_http_function_using_a_container_image_built_with_go_variables_tfvars>` below.
 
-Full sample can be found in :github_repo_master:`samples-doc/container-event <samples-doc/container-event>`.
+Full sample can be found in :github_repo_master:`samples-doc/container-http <samples-doc/container-http>`.
 
 Terraform Scripts
 ---------------------
 Terraform deployment scripts can be found in:
-:github_repo_master:`samples-doc/container-event/terraform <samples-doc/container-event/terraform>`
+:github_repo_master:`samples-doc/container-http/terraform <samples-doc/container-http/terraform>`
 
 provider.tf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 This script configures the OpenTelekomCloud provider for Terraform.
 
-.. literalinclude:: /../../samples-doc/container-event/terraform/provider.tf
+.. literalinclude:: /../../samples-doc/container-http/terraform/provider.tf
    :language: terraform
    :caption: provider.tf
 
@@ -30,15 +32,18 @@ variables.tf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 This script defines the variables used in the Terraform scripts.
 
-.. literalinclude:: /../../samples-doc/container-event/terraform/variables.tf
+.. literalinclude:: /../../samples-doc/container-http/terraform/variables.tf
    :language: terraform
    :caption: variables.tf
 
+.. _deploying_an_http_function_using_a_container_image_built_with_go_variables_tfvars:
+
 variables.tfvars
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 This file provides values for the variables defined in **variables.tf**.
 
-.. literalinclude:: /../../samples-doc/container-event/terraform/variables.tfvars
+.. literalinclude:: /../../samples-doc/container-http/terraform/variables.tfvars
    :language: terraform
    :caption: variables.tfvars
 
@@ -47,7 +52,7 @@ agency.tf
 This script creates an agency with required permissions
 to allow FunctionGraph to pull images from SWR.
 
-.. literalinclude:: /../../samples-doc/container-event/terraform/agency.tf
+.. literalinclude:: /../../samples-doc/container-http/terraform/agency.tf
    :language: terraform
    :caption: agency.tf
 
@@ -55,23 +60,31 @@ loggroup.tf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 This script creates a log group and log stream in LTS.
 
-.. literalinclude:: /../../samples-doc/container-event/terraform/loggroup.tf
+.. literalinclude:: /../../samples-doc/container-http/terraform/loggroup.tf
    :language: terraform
    :caption: loggroup.tf
 
 function.tf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-This script creates the Event Function using the container image.
+This script creates the HTTP Function using the container image.
 
-.. literalinclude:: /../../samples-doc/container-event/terraform/function.tf
+.. literalinclude:: /../../samples-doc/container-http/terraform/function.tf
    :language: terraform
    :caption: function.tf
 
+api_trigger.tf
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+This script creates an API Gateway trigger to invoke the HTTP Function.
+
+.. literalinclude:: /../../samples-doc/container-http/terraform/api_trigger.tf
+   :language: terraform
+   :caption: api_trigger.tf
+
 testevent.tf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-This script creates a test event to test the Event Function.
+This script creates a test event to test the HTTP Function.
 
-.. literalinclude:: /../../samples-doc/container-event/terraform/testevent.tf
+.. literalinclude:: /../../samples-doc/container-http/terraform/testevent.tf
    :language: terraform
    :caption: testevent.tf
 
@@ -83,9 +96,9 @@ MakefileTF
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To simplify the development and testing process,
-see **MakefileTF** in the **container-event** folder:
+see **MakefileTF** in the **container-http** folder:
 
-.. literalinclude:: /../../samples-doc/container-event/MakefileTF
+.. literalinclude:: /../../samples-doc/container-http/MakefileTF
    :language: make
    :caption: MakefileTF
    :tab-width: 2
@@ -97,7 +110,7 @@ Initialize Terraform
 """""""""""""""""""""""""""""""""""""
 
 To initialize Terraform, run following command in
-the **container-event** folder:
+the **container-http** folder:
 
 .. code-block:: bash
 
@@ -107,7 +120,7 @@ Plan Terraform deployment
 """""""""""""""""""""""""""""""""""""
 
 To plan the Terraform deployment, run following command in
-the **container-event** folder:
+the **container-http** folder:
 
 .. code-block:: bash
 
@@ -116,12 +129,22 @@ the **container-event** folder:
 Deploy using Terraform
 """""""""""""""""""""""""""""""""""""
 
-To deploy the Event Function using Terraform, run following command in
-the **container-event** folder:
+To deploy the HTTP Function using Terraform, run following command in
+the **container-http** folder:
 
 .. code-block:: bash
 
     make -f MakefileTF tf_apply
+
+Test deployed Function
+"""""""""""""""""""""""""""""""""""""
+To test the deployed HTTP Function using the API Gateway trigger, run following command in
+the **container-http** folder:
+
+.. code-block:: bash
+
+    make -f MakefileTF test_deployed
+
 
 Cleanup deployed resources
 """""""""""""""""""""""""""""""""""""
@@ -129,7 +152,7 @@ Cleanup deployed resources
 .. note::
 
    To destroy the deployed resources, run following command in
-   the **container-event** folder:
+   the **container-http** folder:
 
    .. code-block:: bash
 

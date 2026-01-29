@@ -7,7 +7,6 @@ The key information of HTTP functions can be transferred only
 through request headers.
 
 To obtain the AK, SK, and token of an HTTP function as shown in Table 1,
-
 perform the following steps:
 
 1. Log in to the :fg_console:`FunctionGraph console<>` console and go

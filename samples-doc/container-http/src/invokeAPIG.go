@@ -9,7 +9,9 @@ import (
 	"github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/events/apig"
 )
 
-func invokeAPIG(c *gin.Context) {
+// invokeIndex is a handler function that processes requests
+// to the POST /index route.
+func invokeIndex(c *gin.Context) {
 	// Read the request body.
 	reqBody, _ := c.GetRawData()
 
@@ -25,15 +27,8 @@ func invokeAPIG(c *gin.Context) {
 
 	fmt.Printf("RequestId:%s\n", apigEvent.RequestContext.RequestId)
 
+	// fill API Gateway response structure.
 	returnBody := "Hello from FunctionGraph!"
 
-	apigResp := apig.APIGTriggerResponse{
-		Body: returnBody,
-		Headers: map[string]string{
-			"content-type": "application/json",
-		},
-		StatusCode: 200,
-	}
-
-	c.JSON(http.StatusOK, apigResp)
+	c.String(http.StatusOK, returnBody)
 }

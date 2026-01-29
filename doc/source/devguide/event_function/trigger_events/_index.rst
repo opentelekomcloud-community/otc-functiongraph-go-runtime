@@ -1,3 +1,5 @@
+.. _devguide_event_function_trigger_events_index:
+
 Overview of Trigger Events
 ==============================
 

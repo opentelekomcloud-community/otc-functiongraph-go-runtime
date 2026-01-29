@@ -1,33 +1,26 @@
-.. _creating_an_event_function_using_a_container_image_built_with_go:
+.. _creating_an_http_function_using_a_container_image_built_with_go:
 
-Creating an Event Function Using a Container Image Built with Go
+Creating an HTTP Function Using a Container Image Built with Go
 ================================================================
 
-For general details about how to use a container image
-to create and execute an event function,
-see :otc_fg_umn:`Creating an Event Function Using a Container Image and executing the Function<getting_started/creating_an_event_function_using_a_container_image_and_executing_the_function.html>`
-.
+For general details about how to use a container image to create and execute an HTTP function,
+see :otc_fg_umn:`Creating an HTTP Function Using a Container Image and executing the Function <getting_started/creating_an_http_function_using_a_container_image_and_executing_the_function.html>`.
 
 This chapter introduces how to create an image using the Go language
-and perform local verification for event functions.
+and perform local verification for HTTP functions.
 
 .. note::
 
   You need to implement an **HTTP server** in the image listening to port **8000** to receive requests.
 
-  Following request path is required:
-
-  * **POST /invoke** is the function **execution** entry where trigger events are processed.
-
   To initialize the function configuration, implement the **"init()"** function, which Go will execute automatically.
 
+Constraints and Limitations
+---------------------------
 
+* HTTP functions only support the use of APIG triggers.
 
-.. note::
-    FunctionGraph currently does not support initializer functions for event functions.
-
-
-Complete code can be found on Github: :github_repo_master:`Container Event Sample <samples-doc/container-event>`
+Complete code can be found on Github: :github_repo_master:`Container HTTP Sample <samples-doc/container-http>`
 
 Step 1: Create the Project
 --------------------------------------------
@@ -47,9 +40,9 @@ Create Go Module
 .. code-block:: shell
 
    # cretate project directory and src subdirectory
-   mkdir -p container-event/src
+   mkdir -p container-http/src
    # navigate to project directory
-   cd container-event
+   cd container-http
 
 **2. Initialize a Go module**
 
@@ -57,7 +50,7 @@ Run the following command to initialize a new Go module:
 
 .. code-block:: shell
 
-  go mod init container-event
+  go mod init container-http
 
 **3. Add dependencies**
 
@@ -75,11 +68,10 @@ Run the following commands to add the necessary dependencies:
 
 The resulting **go.mod** file should look like this:
 
-.. literalinclude:: /../../samples-doc/container-event/go.mod
+.. literalinclude:: /../../samples-doc/container-http/go.mod
   :language: go
-  :caption: :github_repo_master:`go.mod <samples-doc/container-event/go.mod>`
+  :caption: :github_repo_master:`go.mod <samples-doc/container-http/go.mod>`
   :tab-width: 2
-
 
 Implement the function
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -91,37 +83,35 @@ Change folder to **src** folder:
    # navigate to src directory
    cd src
 
-The FunctionGraph program implements an HTTP server to process POST **invoke**
+The FunctionGraph program implements an HTTP server to process **init** and **invoke**
 requests and give a response.
 
-* Create a **eventhandler.go** file,
+* Create a **main.go** file,
 * import the **gin** dependency package,
 * implement a function named **init()** to initialize the configuration.
 
   Go runs this function named **init** automatically before any other part of the package.
 
-* implement a function handler (method **POST** and path **/invoke**).
+* implement a function handler (method **POST** and path **/index**).
 
+The following code is an example implementation of the above steps.
 
-Following example code shows the implementation of HTTP Server in file **eventhandler.go**:
-
-.. literalinclude:: /../../samples-doc/container-event/src/eventhandler.go
+.. literalinclude:: /../../samples-doc/container-http/src/main.go
    :language: go
-   :caption: src/eventhandler.go
+   :caption: src/main.go
    :tab-width: 2
 
-The logic to process the event is implemented in the function **invokeSampleData** in **invokeSampleData.go**.
+The logic to process the event is implemented in the function **invokeIndex** in **invokeAPIG.go**.
 
-.. literalinclude:: /../../samples-doc/container-event/src/invokeSampleData.go
+.. literalinclude:: /../../samples-doc/container-http/src/invokeAPIG.go
    :language: go
-   :caption: src/invokeSampleData.go
+   :caption: src/invokeAPIG.go
    :tab-width: 2
 
-
-Run and Test server from code
+Run and Test from source code
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To test server from source code, execute in the **container-event/src** folder:
+To test the function from source code, execute in the **container-http/src** folder:
 
 .. code-block:: shell
 
@@ -129,26 +119,38 @@ To test server from source code, execute in the **container-event/src** folder:
 
 The server starts listening on port 8000.
 
-You can use curl to send a test request to the function using a new shell.
+You can use curl to send a test request to the function with payload from
+**resources/apig_post_index.json** using a new shell.
 
-.. code-block:: shell
+.. tabs::
 
-   curl -X POST -H 'Content-Type: application/json' localhost:8000/invoke -d '{"key":"Hello World of FunctionGraph"}'
+  .. tab:: Curl
 
-The expected response is:
+      .. code-block:: shell
 
-.. code-block:: text
+         curl -X POST -H 'Content-Type: application/json' http://localhost:8000/index -d @./resources/apig_post_index.json
 
-    Received key: Hello World of FunctionGraph
+      The expected response is:
+
+      .. code-block:: json
+
+          {"body":"Hello from FunctionGraph!","headers":{"content-type":"application/json"},"statusCode":200,"isBase64Encoded":false}
+
+  .. tab:: Payload **resources/apig_post_index.json**
+
+      .. literalinclude:: /../../samples-doc/container-http/resources/apig_post_index.json
+        :language: json
+        :caption: apig_post_index.json
+        :tab-width: 2
 
 
 Create a Makefile
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To simplify the development and testing process,
-create a **Makefile** in the **container-event** folder:
+create a **Makefile** in the **container-http** folder:
 
-.. literalinclude:: /../../samples-doc/container-event/Makefile
+.. literalinclude:: /../../samples-doc/container-http/Makefile
    :language: make
    :caption: Makefile
    :tab-width: 2
@@ -161,7 +163,7 @@ Build the program either using **go build** or the Makefile target **build**:
 .. tabs::
 
   .. tab:: using go build
-       Run the following command in the **container-event** folder to build the program:
+       Run the following command in the **container-http** folder to build the program:
 
        .. code-block:: shell
 
@@ -169,16 +171,14 @@ Build the program either using **go build** or the Makefile target **build**:
           mkdir -p target
 
           # build the program
-          GOARCH=amd64 GOOS=linux CGO_ENABLED=0 && cd src && go build -o ../target/eventhandler .
+          GOARCH=amd64 GOOS=linux CGO_ENABLED=0 && cd src && go build -o ../target/httpfunction .
 
   .. tab:: using Makefile target "build"
 
-       Run the following command in the **container-event** folder to build the program:
-
+       Run the following command in the **container-http** folder to build the program:
        .. code-block:: shell
 
           make build
-
 
 Run and Test program locally
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -190,15 +190,15 @@ Run the program locally either using **executable** or the Makefile target **run
 .. tabs::
 
   .. tab:: using executable
-       Run the following command in the **container-event** folder to run the compiled program:
+       Run the following command in the **container-http** folder to run the compiled program:
 
        .. code-block:: shell
 
-          ./target/eventhandler
+          ./target/httpfunction
 
   .. tab:: using Makefile target "run_local"
 
-        Run the following command in the **container-event** folder to run the program:
+        Run the following command in the **container-http** folder to run the program:
 
         .. code-block:: shell
 
@@ -208,14 +208,14 @@ In the terminal, you should see output similar to the following:
 
 .. code-block:: shell
 
-    init in main.go
+    init in main.go 
     [GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
 
     [GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
     - using env:   export GIN_MODE=release
     - using code:  gin.SetMode(gin.ReleaseMode)
 
-    [GIN-debug] POST   /invoke                   --> main.invoke (4 handlers)
+    [GIN-debug] POST   /index                    --> main.invokeIndex (4 handlers)
     [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
     Please check https://github.com/gin-gonic/gin/blob/master/docs/doc.md#dont-trust-all-proxies for details.
     [GIN-debug] Listening and serving HTTP on :8000
@@ -232,7 +232,7 @@ Test the program locally either using **curl** or the Makefile target **test_loc
 
        .. code-block:: shell
 
-          curl -X POST -H 'Content-Type: application/json' -d '{"key":"Hello World of FunctionGraph"}' localhost:8000/invoke
+          curl -X POST -H 'Content-Type: application/json' -d @./resources/apig_post_index.json localhost:8000/index
 
   .. tab:: using Makefile target "test_local"
        Run the following command in a new terminal
@@ -242,13 +242,11 @@ Test the program locally either using **curl** or the Makefile target **test_loc
 
           make test_local
 
-
 You should see output similar to the following:
 
 .. code-block:: text
 
-    Received key: Hello World of FunctionGraph
-
+   {"body":"Hello from FunctionGraph!","headers":{"content-type":"application/json"},"statusCode":200,"isBase64Encoded":false}
 
 Step 2: Build the Container Image
 --------------------------------------------
@@ -256,7 +254,7 @@ Step 2: Build the Container Image
 Create a Dockerfile
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Create a **Dockerfile** in the **container-event** folder to define the image.
+Create a **Dockerfile** in the **container-http** folder to define the image.
 
 .. note::
 
@@ -287,18 +285,18 @@ and another using Alpine base image.
 
       Example Dockerfile using Ubuntu base image:
 
-      .. literalinclude:: /../../samples-doc/container-event/Dockerfile
+      .. literalinclude:: /../../samples-doc/container-http/Dockerfile
          :language: docker
-         :caption: Dockerfile Ubuntu
+         :caption: Dockerfile
          :tab-width: 2
 
   .. tab:: using Alpine base image
 
       Example Dockerfile using Alpine base image:
 
-      .. literalinclude:: /../../samples-doc/container-event/Dockerfile.alpine
+      .. literalinclude:: /../../samples-doc/container-http/Dockerfile.alpine
          :language: docker
-         :caption: Dockerfile Alpine
+         :caption: Dockerfile.alpine
          :tab-width: 2
 
 Build and verify the image locally
@@ -311,7 +309,7 @@ Build the image either using **docker build** or the Makefile target **docker_bu
 .. tabs::
 
   .. tab:: using docker build
-      Run the following command in the **container-event** folder to build the image:
+      Run the following command in the **container-http** folder to build the image:
 
       .. code-block:: shell
 
@@ -319,13 +317,13 @@ Build the image either using **docker build** or the Makefile target **docker_bu
              --platform linux/amd64 \
              --build-arg FILE_PATH=target \
              --file Dockerfile \
-             --tag custom_container_event_example:latest .
+             --tag custom_container_http_example:latest .
 
       .. note:: Replace **Dockerfile** with **Dockerfile.alpine** in the above command
           to build the image using the Alpine base image.
 
   .. tab:: using Makefile target "docker_build"
-      Run the following command in the **container-event** folder to build the image:
+      Run the following command in the **container-http** folder to build the image:
 
       .. code-block:: shell
 
@@ -344,19 +342,19 @@ Run the image either using **docker run** or the Makefile target **docker_run_lo
 .. tabs::
 
   .. tab:: using docker run
-      Run the following command in the **container-event** folder to run the image:
+      Run the following command in the **container-http** folder to run the image:
 
       .. code-block:: shell
 
          docker container run --rm \
            --platform linux/amd64 \
            --publish 8000:8000 \
-           --name container_event_example \
-           custom_container_event_example:latest
+           --name container_http_example \
+           custom_container_http_example:latest
 
   .. tab:: using Makefile target "docker_run_local"
 
-      Run the following command in the **container-event** folder to run the image:
+      Run the following command in the **container-http** folder to run the image:
 
       .. code-block:: shell
 
@@ -374,7 +372,7 @@ Test the image either using **curl** or the Makefile target **test_local**:
 
       .. code-block:: shell
 
-         curl -X POST -H 'Content-Type: application/json' -d '{"key":"Hello World of FunctionGraph"}' localhost:8000/invoke
+         curl -X POST -H 'Content-Type: application/json' -d @./resources/apig_post_index.json localhost:8000/invoke
 
   .. tab:: using Makefile target "test_local"
       Run the following command in a new terminal to test the image:
@@ -387,7 +385,7 @@ You should see output similar to the following:
 
 .. code-block:: text
 
-  *** Received key: Hello World of FunctionGraph ***
+   {"body":"Hello from FunctionGraph!","headers":{"content-type":"application/json"},"statusCode":200,"isBase64Encoded":false}
 
 
 Step 3: Upload the Container Image to SWR (SoftWare Repository for Container)
@@ -401,9 +399,6 @@ Prerequisites:
   For more information, see :otc_fg_umn:`Creating a Software Repository for Container <getting_started/creating_a_software_repository_for_container.html#functiongraph-04-0201>`.
 - Credentials for SWR created. 
   For more information, see :otc_fg_umn:`Creating Access Credentials <getting_started/creating_access_credentials.html#functiongraph-04-0202>`.
-
-Upload the image to SWR
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To upload the container image to SWR, following values are needed:
 
@@ -483,9 +478,8 @@ Upload the image to SWR either using **shell commands** or the Makefile target *
 
           make docker_push
 
-
-Step 4: Create an Event Function Using the Container Image
----------------------------------------------------------------
+Step 4: Create the HTTP Function in FunctionGraph Using the Container Image
+-----------------------------------------------------------------------------
 
 1. In the left navigation pane of the management console, choose **Compute** > **FunctionGraph**.
    On the FunctionGraph console, choose **Functions** > **Function List** from the navigation pane.
@@ -493,7 +487,7 @@ Step 4: Create an Event Function Using the Container Image
    for creation mode.
 3. Set the basic function information.
 
-   -  **Function Type**: Select **Event Function**.
+   -  **Function Type**: Select **HTTP Function**.
 
    -  **Region**: The default value is used. You can select other regions.
 
@@ -501,7 +495,7 @@ Step 4: Create an Event Function Using the Container Image
       Resources are region-specific and cannot be used across regions through internal network connections.
       For low network latency and quick resource access, select the nearest region.**
 
-   -  **Function Name**: Enter e.g. **custom_container_event**.
+   -  **Function Name**: Enter e.g. **custom_container_http**.
 
    -  **Enterprise Project**: The default value is **default**. You can select the created enterprise project.
 
@@ -514,7 +508,7 @@ Step 4: Create an Event Function Using the Container Image
    -  **Container Image**: Enter the image uploaded to SWR.
       The format is: **{SWR_endpoint}/{organization_name}/{image_name}:{tag}**.
 
-      Example: *swr.eu-de.otc.t-systems.com/my_organization/custom_container_event_example:latest*.
+      Example: *swr.eu-de.otc.t-systems.com/my_organization/custom_container_http_example:latest*.
 
 4. **Advanced Settings**: **Collect Logs** is disabled by default. If it is enabled,
    function execution logs will be reported to Log Tank Service (LTS).
@@ -543,25 +537,33 @@ Step 4: Create an Event Function Using the Container Image
 
 5. After the configuration is complete, click **Create Function**.
 
-
-See also: :otc_fg_umn:`Step 4: Creating Function <getting_started/creating_an_event_function_using_a_container_image_and_executing_the_function.html#step-4-create-a-function>`
+See also: :otc_fg_umn:`Step 4: Creating Function <getting_started/creating_an_http_function_using_a_container_image_and_executing_the_function.html#step-4-create-a-function>`
 in the user manual.
 
-Step 5: Test the Event Function
+Step 5: Test the HTTP Function
 ---------------------------------------------------------------
 
 On the function details page, click **Test**.
 In the displayed dialog box, create a test event:
 
-- Select **blank-template**,
+- Select **API Gateway (Dedicated)** (only available option),
 - set **Event Name** to **helloworld**,
 -  modify the test event as follows,
 
-   .. code-block::
+  .. literalinclude:: /../../samples-doc/container-http/resources/apig_post_index.json
+     :language: json
+     :caption: apig_post_index.json
+     :tab-width: 2
 
-      {
-          "key": "Hello World of FunctionGraph"
-      }
+  .. note::  
+    Make sure to modify the payload send as body to your FunctionGraph accordingly.
+    The **Test** function in FunctionGraph console uses these settings to call your function:
+
+    * **path**: set to the path defined in your function (e.g. **/index**),
+    * **httpMethod**: set to the method defined in your function (e.g. **POST**),
+    * **accept** header: set to **application/json**,
+    * **responseType** parameter in **queryStringParameters** to
+      **application/json** to get the expected response.
 
 -  and click **Create**.
 
@@ -583,6 +585,26 @@ The execution result contains the following sections:
 
 * The **Function Output** section displays the function's return value.
 
+  The response returned by FunctionGraph a Json object of Type **apig.APIGTriggerResponse**.
+
+  The **body** field contains the base64 encoded response body:
+
+  .. code-block:: text
+
+    SGVsbG8gZnJvbSBGdW5jdGlvbkdyYXBoIQ==
+
+  To decode the response body, use the following command:
+
+  .. code-block:: shell
+
+      echo "SGVsbG8gZnJvbSBGdW5jdGlvbkdyYXBoIQ==" | base64 --decode
+
+  The decoded response body is:
+
+  .. code-block:: text
+
+    Hello from FunctionGraph!
+
 * The **Log Output** section displays the logs generated during function execution.
 
   .. note::
@@ -590,9 +612,8 @@ The execution result contains the following sections:
 
 * The **Summary** section displays key information from the **Log**.
 
-
 Deploy the Event Function using Terraform
 ---------------------------------------------------------------
 
 For details on how to deploy using Terraform,
-see :ref:`deploying_an_event_function_using_a_container_image_built_with_go`
+see :ref:`deploying_an_http_function_using_a_container_image_built_with_go`

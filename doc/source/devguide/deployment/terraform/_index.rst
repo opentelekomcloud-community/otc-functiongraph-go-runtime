@@ -9,6 +9,7 @@ Deploying a function using Terraform
    Deploy Event Function <terraform_event_scratch>
    Deploy HTTP Function <terraform_http_scratch>
    Deploy Event Function Container Image <terraform_event_container>
+   Deploy HTTP Function Container Image <terraform_http_container>
 
 
 To use Terraform as deployment tool, you should be familiar with

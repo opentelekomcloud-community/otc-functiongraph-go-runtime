@@ -1,5 +1,7 @@
-Building an HTTP Function Using Go
-===================================
+.. _devguide_http_function_scratch_index:
+
+Building FunctionGraph HTTP Functions with Go from scratch
+==========================================================================
 
 .. toctree::
    :hidden:

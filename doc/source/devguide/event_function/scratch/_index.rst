@@ -1,3 +1,5 @@
+.. _devguide_event_function_scratch_index:
+
 Building FunctionGraph Event Functions with Go from scratch
 ==========================================================================
 
