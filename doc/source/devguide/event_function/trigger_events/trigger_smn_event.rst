@@ -6,7 +6,7 @@ phones, or HTTP/HTTPS URLs. If you create a function with an SMN trigger,
 messages published to a specified topic will be passed as a parameter to invoke
 the function. Then, the function processes the event, for example, publishing
 messages to other SMN topics or sending them to other cloud services. For
-details, see `Using an SMN Trigger <https://docs.otc.t-systems.com/function-graph/umn/creating_triggers/using_an_smn_trigger.html>`__.
+details, see :docs_otc:`Using an SMN Trigger <function-graph/umn/creating_triggers/using_an_smn_trigger.html>`.
 
 SMN example event
 -----------------

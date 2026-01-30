@@ -5,8 +5,7 @@ Creating an Event Function Using a Container Image Built with Go
 
 For general details about how to use a container image
 to create and execute an event function,
-see :otc_fg_umn:`Creating an Event Function Using a Container Image and executing the Function<getting_started/creating_an_event_function_using_a_container_image_and_executing_the_function.html>`
-.
+see :otc_fg_umn:`Creating an Event Function Using a Container Image and executing the Function <getting_started/creating_an_event_function_using_a_container_image_and_executing_the_function.html>`.
 
 This chapter introduces how to create an image using the Go language
 and perform local verification for event functions.
@@ -19,9 +18,8 @@ and perform local verification for event functions.
 
   * **POST /invoke** is the function **execution** entry where trigger events are processed.
 
-  To initialize the function configuration, implement the **"init()"** function, which Go will execute automatically.
-
-
+  To initialize the function configuration, implement the **"init()"**
+  function, which Go will execute automatically.
 
 .. note::
     FunctionGraph currently does not support initializer functions for event functions.
@@ -393,13 +391,19 @@ You should see output similar to the following:
 Step 3: Upload the Container Image to SWR (SoftWare Repository for Container)
 -----------------------------------------------------------------------------
 
-For details on SWR (SoftWare Repository for Container), see `Software Repository for Container User Manual <https://docs.otc.t-systems.com/software-repository-container/umn/>`_.
+For details on SWR (SoftWare Repository for Container), see:
 
-Prerequisites:
+* :docs_otc:`Software Repository for Container User Manual <software-repository-container/umn/>`
+* :docs_otc:`Uploading an Image through a Container Engine Client <software-repository-container/umn/image_management/uploading_an_image_through_a_container_engine_client.html>`
+* :docs_otc:`Obtaining a Long-Term Docker Login Command <software-repository-container/umn/image_management/obtaining_a_long-term_docker_login_command.html>`
+
+Prerequisites
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-- SWR instance created.
+
+* SWR instance created.
   For more information, see :otc_fg_umn:`Creating a Software Repository for Container <getting_started/creating_a_software_repository_for_container.html#functiongraph-04-0201>`.
-- Credentials for SWR created. 
+
+* Credentials for SWR created.
   For more information, see :otc_fg_umn:`Creating Access Credentials <getting_started/creating_access_credentials.html#functiongraph-04-0202>`.
 
 Upload the image to SWR
@@ -415,13 +419,13 @@ To upload the container image to SWR, following values are needed:
      - Description
    * - OTC_SDK_PROJECTNAME
      - | Your project name.
-       | To obtain this, see: :api_usage:`Obtaining a Project ID<guidelines/calling_apis/obtaining_required_information.html>` 
+       | To obtain this, see: :api_usage:`Obtaining a Project ID<guidelines/calling_apis/obtaining_required_information.html>`
          in API usage guide but use the **project name** instead of the project ID.
    * - OTC_SDK_AK
      - Your Access Key
    * - OTC_SWR_LOGIN_KEY
      - | The login key for SWR.
-       | For details see: `Obtaining a Long-Term Docker Login Command <https://docs.otc.t-systems.com/software-repository-container/umn/image_management/obtaining_a_long-term_docker_login_command.html>`_
+       | For details see: :docs_otc:`Obtaining a Long-Term Docker Login Command <software-repository-container/umn/image_management/obtaining_a_long-term_docker_login_command.html>`
          in the Software Repository for Container user manual.
        |
        | It can be generated using the access key **${OTC_SDK_AK}** and secret key **${OTC_SDK_SK}** as follows:
@@ -434,9 +438,9 @@ To upload the container image to SWR, following values are needed:
 
    * - OTC_SWR_ENDPOINT
      - SWR endpoint, e.g. **swr.eu-de.otc.t-systems.com**
-   * - OTC_SWR_ORGANISATION
+   * - OTC_SWR_ORGANIZATION
      - Your SWR organization name
-   * - CONTAINER_NAME
+   * - IMAGE_NAME
      - The name of your container image
 
 Set the environment variables:
@@ -449,8 +453,8 @@ Set the environment variables:
               openssl dgst -binary -sha256 -hmac "${OTC_SDK_SK}" | \
               od -An -vtx1 | sed 's/[ \n]//g' | sed 'N;s/\n//')
       export OTC_SWR_ENDPOINT=swr.eu-de.otc.t-systems.com
-      export OTC_SWR_ORGANISATION=<your_swr_organisation>
-      export CONTAINER_NAME=custom_container_event_example
+      export OTC_SWR_ORGANIZATION=<your_swr_organization>
+      export IMAGE_NAME=custom_container_event_example
 
 
 Upload the image to SWR either using **shell commands** or the Makefile target **docker_push**:
@@ -468,12 +472,12 @@ Upload the image to SWR either using **shell commands** or the Makefile target *
         .. code-block:: shell
           :caption: **2. Tag the image**
 
-            docker tag $(CONTAINER_NAME):latest ${OTC_SWR_ENDPOINT}/$(OTC_SWR_ORGANISATION)/$(CONTAINER_NAME):latest
+            docker tag $(IMAGE_NAME):latest ${OTC_SWR_ENDPOINT}/$(OTC_SWR_ORGANIZATION)/$(IMAGE_NAME):latest
 
         .. code-block:: shell
           :caption: **3. Push the image to SWR**
 
-            docker push ${OTC_SWR_ENDPOINT}/$(OTC_SWR_ORGANISATION)/$(CONTAINER_NAME):latest
+            docker push ${OTC_SWR_ENDPOINT}/$(OTC_SWR_ORGANIZATION)/$(IMAGE_NAME):latest
 
 
    .. tab:: using Makefile target "docker_push"

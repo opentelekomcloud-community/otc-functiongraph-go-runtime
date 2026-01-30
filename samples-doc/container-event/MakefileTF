@@ -1,5 +1,7 @@
-include ./Makefile
+# Makefile for Terraform deployment of the Container Event Function sample
 
+# Include Makefile for build and docker tasks
+include ./Makefile 
 
 # Terraform backend configuration
 BACKEND_CONFIG_BUCKET := "doc-samples-tf-backend"
@@ -24,7 +26,7 @@ plan:
 	terraform -chdir=terraform \
 	  plan \
 		-var-file="variables.tfvars" \
-		-var="image_url=$(OTC_SWR_ENDPOINT)/$(OTC_SWR_ORGANISATION)/$(CONTAINER_NAME):latest"
+		-var="image_url=$(OTC_SWR_ENDPOINT)/$(OTC_SWR_ORGANIZATION)/$(IMAGE_NAME):latest"
 
 deploy: docker_push
 	if [ ! -f "terraform/.terraform.lock.hcl" ]; then \
@@ -33,12 +35,27 @@ deploy: docker_push
 	terraform -chdir=terraform \
 	  apply -auto-approve \
 	  -var-file="variables.tfvars" \
-		-var="image_url=$(OTC_SWR_ENDPOINT)/$(OTC_SWR_ORGANISATION)/$(CONTAINER_NAME):latest"
+		-var="image_url=$(OTC_SWR_ENDPOINT)/$(OTC_SWR_ORGANIZATION)/$(IMAGE_NAME):latest"
 
 destroy:
 	terraform -chdir=terraform \
 	  destroy -auto-approve \
 		-var-file="variables.tfvars" \
-		-var="image_url=$(OTC_SWR_ENDPOINT)/$(OTC_SWR_ORGANISATION)/$(CONTAINER_NAME):latest"
+		-var="image_url=$(OTC_SWR_ENDPOINT)/$(OTC_SWR_ORGANIZATION)/$(IMAGE_NAME):latest"
 
-.PHONY: initTerraform plan deploy destroy
+
+test_deployed:
+  # getting Token for authentication from Username/Password...
+	$(eval TOKEN := $(shell ../../utils/tokenFromUsername.sh))
+	# getting the Function URN from terraform output...
+	$(eval MY_FUNCTION_URN := $(shell terraform -chdir=terraform output -raw MY_FUNCTION_URN))
+	# calling the deployed function via FunctionGraph API...
+	@curl -X POST \
+	 -H "Content-Type: application/json" \
+	 -H "x-auth-token: $(TOKEN)" \
+	 -d '{"key":"Hello World of FunctionGraph"}' \
+	 https://functiongraph.$(OTC_SDK_REGION).otc.t-systems.com/v2/$(OTC_SDK_PROJECTID)/fgs/functions/$(MY_FUNCTION_URN):latest/invocations
+	@echo "" 
+	# finished
+
+.PHONY: initTerraform plan deploy destroy test_deployed

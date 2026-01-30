@@ -5,10 +5,11 @@ Following pages demonstrate how to call a FunctionGraph implemented in
 python using Go:
 
 .. toctree::
-   :maxdepth: 1
+    :maxdepth: 1
 
     Using API calls<apicalls/_index>
     Using gopertelekomcloud<gopertelekomcloud/_index>
+    Using bash <bash/_index>
 
 
 .. _ref_invoke-prerequisites:

@@ -72,6 +72,27 @@ This script creates the HTTP Function using the container image.
    :language: terraform
    :caption: function.tf
 
+In the **function.tf** script, the relevant part to create
+the HTTP Function using a custom container image is as follows:
+
+.. code-block:: terraform
+
+    handler   = "-"
+    code_type = "Custom-Image-Swr"
+    runtime   = "http"
+
+    custom_image {
+      url = var.image_url
+    }
+
+were `var.image_url` is the address of the container image in SWR.
+in the format:
+
+.. code-block:: text
+
+    swr.<REGION>.otc.t-systems.com/<SWR-ORGANIZATION>/<IMAGE_NAME>:<TAG>
+
+
 api_trigger.tf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 This script creates an API Gateway trigger to invoke the HTTP Function.
@@ -114,7 +135,7 @@ the **container-http** folder:
 
 .. code-block:: bash
 
-    make -f MakefileTF tf_init
+    make -f MakefileTF initTerraform
 
 Plan Terraform deployment
 """""""""""""""""""""""""""""""""""""
@@ -124,7 +145,7 @@ the **container-http** folder:
 
 .. code-block:: bash
 
-    make -f MakefileTF tf_plan
+    make -f MakefileTF plan
 
 Deploy using Terraform
 """""""""""""""""""""""""""""""""""""
@@ -134,7 +155,7 @@ the **container-http** folder:
 
 .. code-block:: bash
 
-    make -f MakefileTF tf_apply
+    make -f MakefileTF deploy
 
 Test deployed Function
 """""""""""""""""""""""""""""""""""""

@@ -6,7 +6,7 @@ Source for this sample can be found in:
 
 
 For details on gopertelekomcloud,
-see `gopertelekomcloud <https://github.com/opentelekomcloud/gophertelekomcloud>`_  on Github.
+see :github_otc:`gopertelekomcloud <gophertelekomcloud>` on Github.
 
 Prerequisites
 -------------

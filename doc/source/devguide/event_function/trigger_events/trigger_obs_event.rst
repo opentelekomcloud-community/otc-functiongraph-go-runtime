@@ -1,7 +1,7 @@
 OBS Event Source
 ================
 
-For details, see `Using an OBS Trigger <https://docs.otc.t-systems.com/function-graph/umn/creating_triggers/using_an_obs_trigger.html>`__.
+For details, see :docs_otc:`Using an OBS Trigger <function-graph/umn/creating_triggers/using_an_obs_trigger.html>`.
 
 Hints
 -----

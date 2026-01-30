@@ -112,7 +112,7 @@ Linux/Ubuntu
 
 .. note::
 
-   For *s3cmd* tool installation see: `S3cmd <https://github.com/opentelekomcloud/obs-s3/tree/master/s3cmd>`_
+   For *s3cmd* tool installation see: :github_otc:`S3cmd <obs-s3/tree/master/s3cmd>`
    on github.
 
 
@@ -127,7 +127,7 @@ Microsoft Windows
 ~~~~~~~~~~~~~~~~~~~~~~
 
 .. note::
-   For *Microsoft Windows*, see `OBS Browser+ <https://docs.otc.t-systems.com/object-storage-service/tool-guide/index.html#>`_
+   For *Microsoft Windows*, see :docs_otc:`OBS Browser+ <object-storage-service/tool-guide/index.html>`
 
 
 

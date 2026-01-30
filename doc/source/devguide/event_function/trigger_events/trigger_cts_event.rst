@@ -9,7 +9,7 @@ the CTS trigger to call the FunctionGraph function. Through the function, the
 key information in the log is analyzed and processed, and the system, network
 and other business modules are automatically repaired, or alarms are generated
 through SMS, email, etc. to notify business personnel to handle. For the use of
-CTS triggers, please refer to `Using a CTS Trigger <https://docs.otc.t-systems.com/function-graph/umn/creating_triggers/using_a_cts_trigger.html>`__.
+CTS triggers, please refer to :docs_otc:`Using a CTS Trigger <function-graph/umn/creating_triggers/using_a_cts_trigger.html>`.
 
 CTS example event
 -----------------
@@ -71,7 +71,7 @@ Parameter description
      - Status of the event
 
 For full description of all parameters see
-`CTS Event Reference <https://docs.otc.t-systems.com/cloud-trace-service/umn/trace_references/trace_structure.html#id1>`_.
+:docs_otc:`CTS Event Reference <cloud-trace-service/umn/trace_references/trace_structure.html#id1>`.
 
 Example
 -------

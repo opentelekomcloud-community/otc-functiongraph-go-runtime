@@ -101,7 +101,7 @@ the **container-event** folder:
 
 .. code-block:: bash
 
-    make -f MakefileTF tf_init
+    make -f MakefileTF initTerraform
 
 Plan Terraform deployment
 """""""""""""""""""""""""""""""""""""
@@ -111,7 +111,7 @@ the **container-event** folder:
 
 .. code-block:: bash
 
-    make -f MakefileTF tf_plan
+    make -f MakefileTF plan
 
 Deploy using Terraform
 """""""""""""""""""""""""""""""""""""
@@ -121,7 +121,33 @@ the **container-event** folder:
 
 .. code-block:: bash
 
-    make -f MakefileTF tf_apply
+    make -f MakefileTF deploy
+
+
+Test deployed Function
+"""""""""""""""""""""""""""""""""""""
+
+To test the deployed Event Function using the Invokation API, run following command in
+the **container-event** folder:
+
+.. code-block:: bash
+
+    make -f MakefileTF test_deployed
+
+This target makes use of the script **tokenFromUsername.sh** to obtain an authentication token
+using username and password for the API call.
+
+.. literalinclude:: /../../utils/tokenFromUsername.sh
+   :language: bash
+   :caption: tokenFromUsername.sh
+
+This file needs execution permissions, e.g. set using:
+
+.. code-block:: bash
+
+    chmod +x tokenFromUsername.sh
+
+
 
 Cleanup deployed resources
 """""""""""""""""""""""""""""""""""""

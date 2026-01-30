@@ -8,7 +8,7 @@ each API operation (such as, GET and PUT) to a specific function. APIG invokes
 the relevant function when an HTTPS request is sent to the API backend.
 
 For more information about how to use HTTPS calls to trigger functions, see
-`Using an APIG (Dedicated) trigger <https://docs.otc.t-systems.com/function-graph/umn/creating_triggers/using_an_apig_dedicated_trigger.html#>`__.
+::docs_otc:`Using an APIG (Dedicated) trigger <function-graph/umn/creating_triggers/using_an_apig_dedicated_trigger.html>`.
 
 Example APIG Event
 ------------------

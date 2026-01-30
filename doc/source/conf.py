@@ -263,9 +263,12 @@ extlinks = {
         "https://github.com/opentelekomcloud-community/otc-api-sign-sdk-go/%s",
         "%s",
     ),
+    "docs_otc": ("https://docs.otc.t-systems.com/%s", "%s"),
+    "github_otc": ("https://github.com/opentelekomcloud/%s", "%s"),
+    "github_otc_community": ("https://github.com/opentelekomcloud-community/%s", "%s"),
 }
 
 role_name = "github_repo_master"
 
-extlinks_detect_hardcoded_links = True
+extlinks_detect_hardcoded_links = False
 

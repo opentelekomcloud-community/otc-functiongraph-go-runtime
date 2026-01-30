@@ -20,5 +20,5 @@ on how to install Docker on your system.
 
 OpenTelekomCloud community provides following libraries for Go development:
 
-* The community edition of `OTC SDK for API signing in Go <https://github.com/opentelekomcloud-community/otc-api-sign-sdk-go>`_
+* The community edition of :github_otc_community:`OTC SDK for API signing in Go <otc-api-sign-sdk-go>`
   provides utility methods to handle request signing.
