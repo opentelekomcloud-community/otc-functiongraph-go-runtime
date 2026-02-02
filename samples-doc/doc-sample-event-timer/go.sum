@@ -1,0 +1,4 @@
+github.com/huaweicloud/huaweicloud-sdk-go-obs v3.25.9+incompatible h1:T9+wBrjfJUrWKppRwXhDNjf6vAJy7DfZYWgkjNbxkIU=
+github.com/huaweicloud/huaweicloud-sdk-go-obs v3.25.9+incompatible/go.mod h1:l7VUhRbTKCzdOacdT4oWCwATKyvZqUOlOqr0Ous3k4s=
+github.com/opentelekomcloud-community/obs-go-sdk v0.0.0-20240327090110-68352672911f h1:OwJYx22ao430QDjNlxijbf/wTR/0HZmKxCq0rON/ZYc=
+github.com/opentelekomcloud-community/obs-go-sdk v0.0.0-20240327090110-68352672911f/go.mod h1:pfaV5G6P4WeQVw6hJHcCEx/0QAFZCN4vEEi/88iqXgY=

@@ -1,0 +1,51 @@
+# Makefile for Terraform deployment of the HTTP Function sample
+
+# Include Makefile for build
+include ./Makefile 
+
+# Terraform backend configuration
+BACKEND_CONFIG_BUCKET := "doc-samples-tf-backend"
+BACKEND_CONFIG_KEY := "terraform_state/go/go-buildinghttpfunction.tf"
+BACKEND_CONFIG_REGION := "eu-de"
+BACKEND_CONFIG_ENDPOINTS := "endpoints={s3=\"https://obs.eu-de.otc.t-systems.com\"}"
+
+CURRENT_MAKEFILE := $(firstword $(MAKEFILE_LIST))
+
+tf_init:
+	terraform -chdir=terraform \
+	  init \
+	  -backend-config=$(BACKEND_CONFIG_ENDPOINTS) \
+	  -backend-config="bucket=$(BACKEND_CONFIG_BUCKET)" \
+	  -backend-config="key=$(BACKEND_CONFIG_KEY)" \
+	  -backend-config="region=$(BACKEND_CONFIG_REGION)"
+
+tf_plan: 
+	if [ ! -f "terraform/.terraform.lock.hcl" ]; then \
+		$(MAKE) -f $(CURRENT_MAKEFILE) initTerraform; \
+	fi
+	terraform -chdir=terraform \
+	  plan \
+		-var-file="variables.tfvars"
+
+tf_apply: all
+	if [ ! -f "terraform/.terraform.lock.hcl" ]; then \
+		$(MAKE) -f $(CURRENT_MAKEFILE) initTerraform; \
+	fi
+	terraform -chdir=terraform \
+	  apply -auto-approve \
+	  -var-file="variables.tfvars"
+
+tf_destroy:
+	terraform -chdir=terraform \
+	  destroy -auto-approve \
+		-var-file="variables.tfvars"
+
+test_deployed:
+	# get the API Gateway URL from terraform output
+	$(eval API_GATEWAY_TRIGGER_URL := $(shell terraform -chdir=terraform output -raw API_GATEWAY_TRIGGER_URL))
+	@echo "Using API Gateway URL: $(API_GATEWAY_TRIGGER_URL)"
+	# execute a curl request against the deployed function via API Gateway
+	curl -X GET $(API_GATEWAY_TRIGGER_URL)/hello
+	@echo ""
+
+.PHONY: tf_init tf_plan tf_apply tf_destroy test_deployed

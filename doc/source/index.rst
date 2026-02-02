@@ -11,7 +11,9 @@ FunctionGraph on OpenTelekomCloud.
    Building with Go <devguide/_index>
    Event Functions <devguide/event_function/_index>
    HTTP Functions <devguide/http_function/_index>
+   Concepts <devguide/concepts/_index>
    Deployment <devguide/deployment/_index>
+   Invoke Function <devguide/invoke/_index>
    Samples <samples/_index>
    Best Practices <devguide/bestpractices/_index>
 
@@ -56,7 +58,7 @@ See :otc_fg_umn:`Notes and Constraints <service_overview/notes_and_constraints.h
 
 
 .. note:: **Warranty Disclaimer**
-    
+
     THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT
     WILL BE USEFUL,BUT WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY
     OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.

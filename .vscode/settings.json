@@ -1,0 +1,6 @@
+{
+  "restructuredtext.linter.doc8.extraArgs": [
+    "--config ${workspaceFolder}/doc/doc8.ini"
+  ],
+  
+}

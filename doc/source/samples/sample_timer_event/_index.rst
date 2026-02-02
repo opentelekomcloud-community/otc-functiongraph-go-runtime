@@ -9,10 +9,6 @@ Source for this sample can be found in:
 
 Overview
 --------
-Following diagram shows components used in this example:
-  
-
-
 
 The timer event triggers the FunctionGraph function at specified intervals.
 

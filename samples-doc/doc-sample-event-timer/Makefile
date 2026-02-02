@@ -4,7 +4,8 @@ build:
 	GOARCH=amd64 GOOS=linux CGO_ENABLED=0 go build -o target/$(HANDLER_NAME) src/main.go
 
 zip:
-	zip -j deploy.zip target/$(HANDLER_NAME)
+	printf "# Handler name\n${HANDLER_NAME}" > target/handler_name.txt
+	cd target && zip -r ../deploy.zip . 
 
 clean:
 	rm -f deploy.zip
@@ -12,7 +13,7 @@ clean:
 
 all: build zip
 
-initTerraform:
+tf_init:
 	terraform -chdir=terraform \
 	  init \
 	  -backend-config="endpoints={s3=\"https://obs.eu-de.otc.t-systems.com\"}" \
@@ -20,7 +21,16 @@ initTerraform:
 	  -backend-config="key=terraform_state/go/doc-sample-event-timer.tf" \
 	  -backend-config="region=eu-de"
 
-deploy: all
+tf_plan: 
+	if [ ! -f "terraform/.terraform.lock.hcl" ]; then \
+		$(MAKE) initTerraform; \
+	fi
+	terraform -chdir=terraform \
+	  plan \
+	  -var function_name="doc-sample-event-timer" \
+	  -var function_handler_name=$(HANDLER_NAME)
+
+tf_apply: all
 	if [ ! -f "terraform/.terraform.lock.hcl" ]; then \
 		$(MAKE) initTerraform; \
 	fi
@@ -29,8 +39,8 @@ deploy: all
 	  -var function_name="doc-sample-event-timer" \
 	  -var function_handler_name=$(HANDLER_NAME)
 
-destroy:
+tf_destroy:
 	terraform -chdir=terraform \
 	  destroy -auto-approve
 
-.PHONY: build zip clean all deploy destroy initTerraform
+.PHONY: build zip clean all tf_init tf_plan tf_apply tf_destroy

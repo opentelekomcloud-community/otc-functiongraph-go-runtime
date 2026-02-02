@@ -1,38 +1,32 @@
-Event Function
+Event Functions
 ==========================
 
 .. toctree::
+   :maxdepth: 1
    :hidden:
 
-   Handler <handler>
-   Context <context>
-   Trigger Events <trigger_events/_index>
+   Create from scratch <scratch/_index>
+   Container Image <container/_index>
+   Trigger events <trigger_events/_index>
 
 Event functions can be configured with event triggers and integrate
 a variety of OpenTelekomCloud products (such as object storage service OBS,
 distributed messaging service RabbitMQ version, cloud log service LTS, etc.).
 
-FunctionGraph Go libraries
---------------------------------
-The FunctionGraph Go runtime SDK provides the following libraries
-to help you develop Go event functions:
+Types of Building Go Event Functions
+------------------------------------
 
-- :github_repo_master:`github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/go-api/context </go-runtime/go-api/context>`
+You can build FunctionGraph event functions in Go in the following ways:
 
-  This library provides the Context structure, which contains
-  the runtime information of the function and provides
-  methods to obtain the runtime information. 
+* :ref:`From Scratch  <devguide_event_function_scratch_index>`
+* :ref:`Using Container Image  <devguide_event_function_container_index>`
 
-- :github_repo_master:`github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/pkg/runtime </go-runtime/pkg/runtime>`
+.. note::
+  The option "Select template" is not supported for Go event functions.
 
-  This library provides the Handler interface, which defines
-  the method that must be implemented by a function handler.
+Event Triggers
+------------------------------------
+Both methods support trigger events.
 
-- :github_repo_master:`github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/events </go-runtime/events>`
+For available trigger events, see :ref:`Overview of Trigger Events  <devguide_event_function_trigger_events_index>`.
 
-  This library provides type definitions for common event source integrations.
-
-
-OpenTelekomCloud community provides following libraries for Go development:
-
-* The community edition of `OTC SDK for API signing in Go <https://github.com/opentelekomcloud-community/otc-api-sign-sdk-go>`_ provides utility methods to handle request signing.
