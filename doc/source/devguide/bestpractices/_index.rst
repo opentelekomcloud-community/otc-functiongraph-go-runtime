@@ -1,6 +1,10 @@
-Code best practices for Go FunctionGraph functions
+Best practices for FunctionGraph functions
 ========================================================
 
 .. toctree::
-   :hidden:
+   :maxdepth: 2
+
+   Performance Optimization<performance>
+   Cold Start Optimization<coldstart>
+   Security Best Practices<security>
 
