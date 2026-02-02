@@ -9,7 +9,7 @@ python using Go:
 
     Using API calls<apicalls/_index>
     Using gopertelekomcloud<gopertelekomcloud/_index>
-    Using bash <bash/_index>
+    Using curl <curl/_index>
 
 
 .. _ref_invoke-prerequisites:

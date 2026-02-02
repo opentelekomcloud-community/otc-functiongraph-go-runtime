@@ -1,4 +1,4 @@
-.. _deploying_an_http_function_using_a_container_image_built_with_go:
+.. _deploying_an_http_function_container_using_terraform:
 
 Deploying an HTTP Function container Image using Terraform
 ===============================================================
@@ -11,7 +11,7 @@ Prerequisite
 * Terraform configured according to :ref:`ref_terraform_setup`
 * Image created as described in :ref:`creating_an_http_function_using_a_container_image_built_with_go`
 * Exiting API Gateway instance to create the trigger for the HTTP Function.
-  see section :ref:`variables.tfvars <deploying_an_http_function_using_a_container_image_built_with_go_variables_tfvars>` below.
+  see section :ref:`variables.tfvars <deploying_an_http_function_container_using_terraform_variables_tfvars>` below.
 
 Full sample can be found in :github_repo_master:`samples-doc/container-http <samples-doc/container-http>`.
 
@@ -36,7 +36,7 @@ This script defines the variables used in the Terraform scripts.
    :language: terraform
    :caption: variables.tf
 
-.. _deploying_an_http_function_using_a_container_image_built_with_go_variables_tfvars:
+.. _deploying_an_http_function_container_using_terraform_variables_tfvars:
 
 variables.tfvars
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -95,11 +95,24 @@ in the format:
 
 api_trigger.tf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-This script creates an API Gateway trigger to invoke the HTTP Function.
+This script creates an API Gateway trigger and all relevant resources to
+invoke the HTTP Function:
+
+- API gateway group (opentelekomcloud_apigw_group_v2)
+- API resource (opentelekomcloud_apigw_api_v2) that connects
+  this API to the FunctionGraph function
+- publish API using (opentelekomcloud_apigw_api_publishment_v2)
 
 .. literalinclude:: /../../samples-doc/container-http/terraform/api_trigger.tf
    :language: terraform
    :caption: api_trigger.tf
+
+
+.. note::
+
+    To have full control over resources being created this sample does not use
+    **opentelekomcloud_fgs_trigger_v2** for APIG Trigger creation,
+
 
 testevent.tf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -135,7 +148,7 @@ the **container-http** folder:
 
 .. code-block:: bash
 
-    make -f MakefileTF initTerraform
+    make -f MakefileTF tf_init
 
 Plan Terraform deployment
 """""""""""""""""""""""""""""""""""""
@@ -145,7 +158,7 @@ the **container-http** folder:
 
 .. code-block:: bash
 
-    make -f MakefileTF plan
+    make -f MakefileTF tf_plan
 
 Deploy using Terraform
 """""""""""""""""""""""""""""""""""""
@@ -155,7 +168,7 @@ the **container-http** folder:
 
 .. code-block:: bash
 
-    make -f MakefileTF deploy
+    make -f MakefileTF tf_apply
 
 Test deployed Function
 """""""""""""""""""""""""""""""""""""

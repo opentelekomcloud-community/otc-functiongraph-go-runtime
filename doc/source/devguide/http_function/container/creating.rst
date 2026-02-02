@@ -625,4 +625,4 @@ Deploy the HTTP Function using Terraform
 ---------------------------------------------------------------
 
 For details on how to deploy using Terraform,
-see :ref:`deploying_an_http_function_using_a_container_image_built_with_go`
+see :ref:`deploying_an_http_function_container_using_terraform`.

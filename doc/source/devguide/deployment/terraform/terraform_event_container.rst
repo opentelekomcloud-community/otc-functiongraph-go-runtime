@@ -101,7 +101,7 @@ the **container-event** folder:
 
 .. code-block:: bash
 
-    make -f MakefileTF initTerraform
+    make -f MakefileTF tf_init
 
 Plan Terraform deployment
 """""""""""""""""""""""""""""""""""""
@@ -111,7 +111,7 @@ the **container-event** folder:
 
 .. code-block:: bash
 
-    make -f MakefileTF plan
+    make -f MakefileTF tf_plan
 
 Deploy using Terraform
 """""""""""""""""""""""""""""""""""""
@@ -121,7 +121,7 @@ the **container-event** folder:
 
 .. code-block:: bash
 
-    make -f MakefileTF deploy
+    make -f MakefileTF tf_apply
 
 
 Test deployed Function

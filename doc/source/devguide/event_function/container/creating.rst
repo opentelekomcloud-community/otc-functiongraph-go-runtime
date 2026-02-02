@@ -599,4 +599,4 @@ Deploy the Event Function using Terraform
 ---------------------------------------------------------------
 
 For details on how to deploy using Terraform,
-see :ref:`deploying_an_event_function_using_a_container_image_built_with_go`
+see :ref:`deploying_an_event_function_using_a_container_image_built_with_go`.

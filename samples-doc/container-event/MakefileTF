@@ -11,7 +11,7 @@ BACKEND_CONFIG_ENDPOINTS := "endpoints={s3=\"https://obs.eu-de.otc.t-systems.com
 
 CURRENT_MAKEFILE := $(firstword $(MAKEFILE_LIST))
 
-initTerraform:
+tf_init:
 	terraform -chdir=terraform \
 	  init \
 	  -backend-config=$(BACKEND_CONFIG_ENDPOINTS) \
@@ -19,7 +19,7 @@ initTerraform:
 	  -backend-config="key=$(BACKEND_CONFIG_KEY)" \
 	  -backend-config="region=$(BACKEND_CONFIG_REGION)"
 
-plan: 
+tf_plan: 
 	if [ ! -f "terraform/.terraform.lock.hcl" ]; then \
 		$(MAKE) -f $(CURRENT_MAKEFILE) initTerraform; \
 	fi
@@ -28,7 +28,7 @@ plan:
 		-var-file="variables.tfvars" \
 		-var="image_url=$(OTC_SWR_ENDPOINT)/$(OTC_SWR_ORGANIZATION)/$(IMAGE_NAME):latest"
 
-deploy: docker_push
+tf_apply: docker_push
 	if [ ! -f "terraform/.terraform.lock.hcl" ]; then \
 		$(MAKE) -f $(CURRENT_MAKEFILE) initTerraform; \
 	fi
@@ -37,7 +37,7 @@ deploy: docker_push
 	  -var-file="variables.tfvars" \
 		-var="image_url=$(OTC_SWR_ENDPOINT)/$(OTC_SWR_ORGANIZATION)/$(IMAGE_NAME):latest"
 
-destroy:
+tf_destroy:
 	terraform -chdir=terraform \
 	  destroy -auto-approve \
 		-var-file="variables.tfvars" \
@@ -46,16 +46,16 @@ destroy:
 
 test_deployed:
   # getting Token for authentication from Username/Password...
-	$(eval TOKEN := $(shell ../../utils/tokenFromUsername.sh))
+	$(eval OTC_X_AUTH_TOKEN := $(shell ../../utils/tokenFromUsername.sh))
 	# getting the Function URN from terraform output...
 	$(eval MY_FUNCTION_URN := $(shell terraform -chdir=terraform output -raw MY_FUNCTION_URN))
 	# calling the deployed function via FunctionGraph API...
 	@curl -X POST \
 	 -H "Content-Type: application/json" \
-	 -H "x-auth-token: $(TOKEN)" \
+	 -H "x-auth-token: $(OTC_X_AUTH_TOKEN)" \
 	 -d '{"key":"Hello World of FunctionGraph"}' \
 	 https://functiongraph.$(OTC_SDK_REGION).otc.t-systems.com/v2/$(OTC_SDK_PROJECTID)/fgs/functions/$(MY_FUNCTION_URN):latest/invocations
 	@echo "" 
 	# finished
 
-.PHONY: initTerraform plan deploy destroy test_deployed
+.PHONY: tf_init tf_plan tf_apply tf_destroy test_deployed

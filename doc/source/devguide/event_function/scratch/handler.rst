@@ -198,3 +198,9 @@ Environment variables defined in ``OpenTelekomCloud`` ->
 
   // accessing an environment variable named "ENV_VAR1"
   ctx.getUserData("ENV_VAR1");
+
+Deploy the Event Function using Terraform
+---------------------------------------------------------------
+
+For details on how to deploy using Terraform,
+see :ref:`deploying_an_event_function_using_terraform`.

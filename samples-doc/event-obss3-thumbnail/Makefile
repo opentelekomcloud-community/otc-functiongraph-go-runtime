@@ -19,7 +19,7 @@ release: all
 	printf "# Handler name\n${HANDLER_NAME}" > target/handler_name.txt
 	cd target && zip -r ../deploy.zip .
 
-initTerraform:
+tf_init:
 	terraform -chdir=terraform \
 	  init \
 	  -backend-config=$(BACKEND_CONFIG_ENDPOINTS) \
@@ -27,7 +27,7 @@ initTerraform:
 	  -backend-config="key=$(BACKEND_CONFIG_KEY)" \
 	  -backend-config="region=$(BACKEND_CONFIG_REGION)"
 
-plan: release
+tf_plan: release
 	if [ ! -f "terraform/.terraform.lock.hcl" ]; then \
 		$(MAKE) initTerraform; \
 	fi
@@ -35,7 +35,7 @@ plan: release
 	  plan \
 		-var-file="variables.tfvars"
 
-deploy: release
+tf_apply: release
 	if [ ! -f "terraform/.terraform.lock.hcl" ]; then \
 		$(MAKE) initTerraform; \
 	fi
@@ -43,9 +43,9 @@ deploy: release
 	  apply -auto-approve \
 	  -var-file="variables.tfvars"
 
-destroy:
+tf_destroy:
 	terraform -chdir=terraform \
 	  destroy -auto-approve \
 		-var-file="variables.tfvars"
 
-.PHONY: build zip clean all release deploy destroy initTerraform plan
+.PHONY: build zip clean all release tf_init tf_plan tf_apply tf_destroy

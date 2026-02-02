@@ -2,6 +2,9 @@
 # Script to get an authentication token 
 # from OTC IAM using username and password
 # to be passed as x-auth-token header in API requests.
+# Script outputs the token to 
+# - stdout
+# - and to the environment variable OTC_X_AUTH_TOKEN (if called using current shell "source ...")
 
 # see: https://docs.otc.t-systems.com/identity-access-management/api-ref/calling_apis/authentication.html#iam-02-0510
 # see: https://docs.otc.t-systems.com/identity-access-management/api-ref/apis/token_management/obtaining_a_user_token_through_password_authentication.html
@@ -66,6 +69,9 @@ if [ "$DEBUG" -eq 1 ]; then
   echo "${token}" >&2
   echo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" >&2
 fi
+
+# export the token to environment variable OTC_X_AUTH_TOKEN
+export OTC_X_AUTH_TOKEN=${token}
 
 # print the token to stdout
 echo ${token}

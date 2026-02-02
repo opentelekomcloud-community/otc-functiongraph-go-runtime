@@ -20,6 +20,9 @@ deploy Go programs on FunctionGraph.
 This sample uses the `go-restful <https://github.com/emicklei/go-restful>`_
 framework to implement the HTTP function.
 
+
+Full sample can be found in :github_repo_master:`samples-doc/buildinghttpfunction <samples-doc/buildinghttpfunction>`.
+
 Procedure
 ------------
 
@@ -186,3 +189,8 @@ The following information is displayed:
 
     Result in browser
 
+Deploy the HTTP Function using Terraform
+---------------------------------------------------------------
+
+For details on how to deploy using Terraform,
+see :ref:`deploying_an_http_function_using_terraform`.
