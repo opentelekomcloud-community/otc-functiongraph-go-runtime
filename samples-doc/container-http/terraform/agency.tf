@@ -15,6 +15,7 @@ resource "opentelekomcloud_identity_agency_v3" "agency" {
     all_projects = true
     roles = [
       "SWR Administrator",
+      "LTS Administrator",
     ]
   }
 

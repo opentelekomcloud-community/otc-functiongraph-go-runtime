@@ -1,26 +1,23 @@
 package common
 
 import (
-    "net/http"
+	"net/http"
 )
 
 type RuntimeLogger interface {
-    Logf(format string, args ...interface{})
+	Logf(format string, args ...interface{})
 }
 
 type InvokeResponse struct {
-    StatusCode int
-    Payload []byte
+	StatusCode int
+	Payload    []byte
 }
 
 type InvokeRequest struct {
-    Payload []byte
-    Header http.Header
+	Payload []byte
+	Header  http.Header
 }
 
-type HealthCheckRequest struct {
-}
+type HealthCheckRequest struct{}
 
-
-type HealthCheckResponse struct {
-}
+type HealthCheckResponse struct{}

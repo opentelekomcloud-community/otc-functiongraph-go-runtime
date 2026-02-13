@@ -1,5 +1,5 @@
 {
-    "body": "",
+    "body": "bmljZSB0byBtZWV0IHlvdQ==",
     "requestContext": {
         "apiId": "bc1dcffd-aa35-474d-897c-d53425a4c08e",
         "requestId": "11cdcdcf33949dc6d722640a13091c77",
@@ -8,7 +8,7 @@
     "queryStringParameters": {
         "responseType": "html"
     },
-    "httpMethod": "GET",
+    "httpMethod": "POST",
     "pathParameters": {},
     "headers": {
         "accept-language": "q=0.5,en-US;q=0.3,en;q=0.2",

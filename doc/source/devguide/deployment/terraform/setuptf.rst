@@ -13,7 +13,7 @@ Terraform provides installation packages for different environments.
 
 For details, see `Install Terraform <https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli>`_ on Terraform site.
 
-For details on how to use Terraform on OpenTelekomCloud, see
+For details on how to use Terraform, see
 `Open Telekom Cloud Provider <https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs>`_.
 
 Setting Environment Variables
@@ -128,7 +128,7 @@ See: `Terraform State <https://developer.hashicorp.com/terraform/language/state>
    As you cannot create the state bucket in this terraform setup,
    you have to create it either:
 
-   * using OpenTelekomCloud OBS console with bucket name as defined in ``provider.tf`` file for ``bucket``.
+   * using OBS console with bucket name as defined in ``provider.tf`` file for ``bucket``.
 
    * using the CLI with command `s3cmd <https://s3tools.org/s3cmd>`_
 

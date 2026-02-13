@@ -22,7 +22,7 @@ Method A: Deploy using console
 """"""""""""""""""""""""""""""""""""
 
 Deploy the function manually as described in :ref:`ref_invoke-prerequisites`
-using the OpenTelekomCloud Console.
+using the FunctionGraph console.
 
 Method B: Deploy using API calls
 """"""""""""""""""""""""""""""""""""

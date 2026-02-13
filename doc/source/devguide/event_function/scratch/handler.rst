@@ -38,10 +38,10 @@ initialize any other Go project using the following *go mod init* command:
 
 .. code-block:: bash
 
-   go mod init example
+   go mod init scratch-event
 
 
-Here, **example** is the module name. You can replace this with anything.
+Here, **scratch-event** is the module name. You can replace this with anything.
 
 This command initializes your project in the current folder and generates
 the **go.mod** file that lists your project's dependencies.
@@ -73,11 +73,11 @@ starts the runtime with this handler.
 Example Go FunctionGraph function code
 --------------------------------------
 
-The following example shows a simple FunctionGraph function written in Go.
+The following example shows a simple Event FunctionGraph function written in Go.
 
-.. literalinclude:: /../../samples-doc/example/src/main.go
+.. literalinclude:: /../../samples-doc/scratch-event/src/main.go
     :language: go
-    :caption: :github_repo_master:`main.go <samples-doc/example/src/main.go>`
+    :caption: :github_repo_master:`main.go <samples-doc/scratch-event/src/main.go>`
 
 Handler name is: **main**
 
@@ -133,9 +133,9 @@ Return values of the handler function
 
    .. tab:: Linux
 
-      .. literalinclude:: /../../samples-doc/example/Makefile
+      .. literalinclude:: /../../samples-doc/scratch-event/Makefile
           :language: Makefile
-          :caption: :github_repo_master:`Makefile <samples-doc/example/Makefile>`
+          :caption: :github_repo_master:`Makefile <samples-doc/scratch-event/Makefile>`
 
       The Makefile automates the build process for your Go FunctionGraph function.
 
@@ -148,9 +148,9 @@ Return values of the handler function
 
    .. tab:: Windows
 
-      .. literalinclude:: /../../samples-doc/example/build.cmd
+      .. literalinclude:: /../../samples-doc/scratch-event/build.cmd
          :language: bat
-         :caption: :github_repo_master:`build.cmd <samples-doc/example/build.cmd>`
+         :caption: :github_repo_master:`build.cmd <samples-doc/scratch-event/build.cmd>`
 
       Run the **build.cmd** script in the project root directory to compile your function code
       and generate the executable file named **example** in the **target_win** directory.
@@ -176,7 +176,7 @@ and is the second argument of the handler function.
 
 * :github_repo_master:`ctx context.RuntimeContext <go-runtime/go-api/context/client-context.go>`
 
-To produce logs in OpenTelekomCloud Log Tank Servics (LTS) you can use
+To produce logs in Log Tank Services (LTS) you can use
 ``ctx.GetLogger()`` to get a RuntimeLogger object for logging.
 
 .. code-block:: go

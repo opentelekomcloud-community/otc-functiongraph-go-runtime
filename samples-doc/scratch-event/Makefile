@@ -1,9 +1,9 @@
 HANDLER_NAME=example
 
-build:
+build: clean
 	GOARCH=amd64 GOOS=linux CGO_ENABLED=0 go build -o target/$(HANDLER_NAME) src/main.go
 
-zip:
+zip: build
 	printf "# Handler name\n${HANDLER_NAME}" > target/handler_name.txt
 	cd target && zip -r ../deploy.zip .
 

@@ -29,7 +29,7 @@ tf_init:
 
 tf_plan: release
 	if [ ! -f "terraform/.terraform.lock.hcl" ]; then \
-		$(MAKE) initTerraform; \
+		$(MAKE) tf_init; \
 	fi
 	terraform -chdir=terraform \
 	  plan \
@@ -37,7 +37,7 @@ tf_plan: release
 
 tf_apply: release
 	if [ ! -f "terraform/.terraform.lock.hcl" ]; then \
-		$(MAKE) initTerraform; \
+		$(MAKE) tf_init; \
 	fi
 	terraform -chdir=terraform \
 	  apply -auto-approve \

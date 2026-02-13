@@ -59,24 +59,42 @@ Run the following command to initialize a new Go module:
 
 **3. Add dependencies**
 
-Run the following commands to add the necessary dependencies:
+.. tabs::
 
-.. code-block:: shell
+  .. tab:: using go get
 
-    # add gin framework
-    go get -u github.com/gin-gonic/gin
+      Run the following commands to add the necessary dependencies:
 
-    # add otc-functiongraph-go-runtime package for use with FunctionGraph events
-    go get -u github.com/opentelekomcloud-community/otc-functiongraph-go-runtime
+      .. code-block:: shell
 
-**4. Resulting go.mod**
+          # add gin framework
+          go get -u github.com/gin-gonic/gin
 
-The resulting **go.mod** file should look like this:
+          # add zap package for logging
+          go get -u go.uber.org/zap
 
-.. literalinclude:: /../../samples-doc/container-event/go.mod
-  :language: go
-  :caption: :github_repo_master:`go.mod <samples-doc/container-event/go.mod>`
-  :tab-width: 2
+          # add otc-functiongraph-go-runtime package for use with FunctionGraph events
+          go get -u github.com/opentelekomcloud-community/otc-functiongraph-go-runtime
+
+  .. tab::  Resulting go.mod
+
+      The resulting **go.mod** file should look like this:
+
+      .. literalinclude:: /../../samples-doc/container-event/go.mod
+        :language: go
+        :caption: :github_repo_master:`go.mod <samples-doc/container-event/go.mod>`
+        :tab-width: 2
+
+      .. tip::
+          Samples in this guide are using the otc-functiongraph-go-runtime version from source by
+
+          .. code-block:: go
+
+            replace github.com/opentelekomcloud-community/otc-functiongraph-go-runtime => ../../../otc-functiongraph-go-runtime
+
+          If you want to use the latest released version of the runtime,
+          change the version in the **go.mod** file to the latest one and
+          remove the **replace** directive.
 
 
 Implement the function
@@ -105,14 +123,22 @@ Following example code shows the implementation of HTTP Server in file **eventha
 
 .. literalinclude:: /../../samples-doc/container-event/src/eventhandler.go
    :language: go
-   :caption: src/eventhandler.go
+   :caption: **src/eventhandler.go**
    :tab-width: 2
 
 The logic to process the event is implemented in the function **invokeSampleData** in **invokeSampleData.go**.
 
 .. literalinclude:: /../../samples-doc/container-event/src/invokeSampleData.go
    :language: go
-   :caption: src/invokeSampleData.go
+   :caption: **src/invokeSampleData.go**
+   :tab-width: 2
+
+
+The FunctionGraph context and logger are implemented in **fg/middleware/fgeventmiddleware.go**.
+
+.. literalinclude:: /../../samples-doc/container-event/src/fgeventmiddleware/fgeventmiddleware.go
+   :language: go
+   :caption: **src/fgeventmiddleware/fgeventmiddleware.go**
    :tab-width: 2
 
 
@@ -492,7 +518,7 @@ Step 4: Create an Event Function Using the Container Image
 ---------------------------------------------------------------
 
 1. In the left navigation pane of the management console, choose **Compute** > **FunctionGraph**.
-   On the FunctionGraph console, choose **Functions** > **Function List** from the navigation pane.
+   On the :fg_console:`FunctionGraph console <>`, choose **Functions** > **Function List** from the navigation pane.
 2. Click **Create Function** in the upper right corner. On the displayed page, select **Container Image**
    for creation mode.
 3. Set the basic function information.

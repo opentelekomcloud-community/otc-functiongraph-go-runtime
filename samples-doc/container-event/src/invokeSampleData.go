@@ -1,8 +1,8 @@
 package main
 
 import (
+	"container-event-sample/src/fgeventmiddleware"
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin" // Import the Gin framework.
@@ -20,30 +20,26 @@ type SampleData struct {
 // invokeSampleData is a function that processes
 // POST requests sent to the /invoke route.
 func invokeSampleData(c *gin.Context) {
+	ctx, logger := fgeventmiddleware.FGContext(c)
+
 	// Read the request body.
 	reqBody, _ := c.GetRawData()
 
-	fmt.Printf("Received request body: %s\n", string(reqBody))
-
-	// Print all request headers.
-	// for name, values := range c.Request.Header {
-	// 	// Loop over all values for the name.
-	// 	for _, value := range values {
-	// 		fmt.Printf(" %s: %s\n", name, value)
-	// 	}
-	// }
+	logger.Infow("Received request body", "body", string(reqBody))
 
 	var sampleData SampleData
 
 	err := json.Unmarshal(reqBody, &sampleData)
 	if err != nil {
-		fmt.Println("Unmarshal failed")
+
+		logger.Errorw("Unmarshal failed", "error", err)
 		c.String(http.StatusBadRequest, "invalid data")
 		return
 	}
 
-	fmt.Printf("Key: %s\n", sampleData.Key)
+	logger.Infow("RequestID", "requestID", ctx.GetRequestID())
+
+	logger.Infow("Processing request", "key", sampleData.Key)
 
 	c.String(http.StatusOK, "Received key: %s", sampleData.Key)
-
 }

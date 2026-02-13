@@ -21,7 +21,7 @@ See environment variables section in: :ref:`ref_invoke-prerequisites`
 Deployed FunctionGraph Event Function
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Deploy the function manually as described in :ref:`ref_invoke-prerequisites`
-using the OpenTelekomCloud Console.
+using the FunctionGraph console.
 
 Getting Token from Username and Password
 ------------------------------------------------------------

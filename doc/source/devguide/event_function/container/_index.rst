@@ -3,11 +3,6 @@
 Building FunctionGraph Event Functions with Go from container image
 ==========================================================================
 
-.. toctree::
-   :hidden:
-
-   Create Image <creating>
-
 Set up development environment
 --------------------------------
 
@@ -18,7 +13,19 @@ See `Get Docker <https://docs.docker.com/get-docker/>`_ for instructions
 on how to install Docker on your system.
 
 
-OpenTelekomCloud community provides following libraries for Go development:
+Open Telekom Cloud community provides following libraries for Go development:
 
 * The community edition of :github_otc_community:`OTC SDK for API signing in Go <otc-api-sign-sdk-go>`
   provides utility methods to handle request signing.
+
+
+Create Image
+-----------------
+
+On how to create a FunctionGraph Event function using Go
+with container image, see:
+
+.. toctree::
+   :maxdepth: 1
+
+   Create Image <creating>

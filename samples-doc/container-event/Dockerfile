@@ -11,6 +11,9 @@ ENV GROUP_NAME=paas_user
 ENV USER_ID=1003
 ENV USER_NAME=paas_user
 
+# Set timzone to UTC
+ENV TZ=Etc/UTC
+
 # create non root user and home directory
 RUN mkdir -m 550 ${HOME} && \
    # add group and user with specific IDs

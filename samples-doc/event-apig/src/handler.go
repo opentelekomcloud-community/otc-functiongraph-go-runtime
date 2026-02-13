@@ -5,14 +5,13 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/events/apig"
+	"github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-events/apig"
 	"github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/go-api/context"
 	"github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/pkg/runtime"
 )
 
 // Example for API Gateway (Dedicated Gateway) handler
 func ApigTest(payload []byte, ctx context.RuntimeContext) (interface{}, error) {
-
 	var apigEvent apig.APIGTriggerEvent
 	err := json.Unmarshal(payload, &apigEvent)
 	if err != nil {
@@ -36,7 +35,6 @@ func ApigTest(payload []byte, ctx context.RuntimeContext) (interface{}, error) {
 	// path parameters example
 	pathParameters := apigEvent.PathParameters
 	if pathParameters != nil {
-
 		for key, value := range pathParameters {
 			ctx.GetLogger().Logf("Path parameter - %s: %s", key, value)
 		}

@@ -10,7 +10,7 @@ build: clean
 	cd src && \
 	go build -o ../$(TARGET_PATH)/eventhandler .
 
-run_local:
+run_local: build
 	cd $(TARGET_PATH) && ./eventhandler
 
 docker_build: build
@@ -38,7 +38,13 @@ docker_all: build docker_build docker_push
 
 test_local:
   # execute a curl 
-	curl -X POST -H 'Content-Type: application/json' -d '{"key":"Hello World of FunctionGraph"}' localhost:8000/invoke
+	curl -X POST \
+	-H "X-Cff-Request-Id: $(shell uuidgen)" \
+	-H "X-Cff-Func-Name: 0@default@sample-container-event" \
+	-H "X-Cff-Func-Version: latest" \
+	-H "X-Cff-Func-Timeout: 30" \
+	-H 'Content-Type: application/json' \
+	-d '{"key":"Hello World of FunctionGraph"}' localhost:8000/invoke
 
 clean:
 	rm -rf $(TARGET_PATH)

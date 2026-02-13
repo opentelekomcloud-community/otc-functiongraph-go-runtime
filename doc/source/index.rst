@@ -1,8 +1,8 @@
-OpenTelekomCloud FunctionGraph Go documentation
+FunctionGraph Go documentation
 ===============================================
 
-This is the FunctionGraph Go Development Guide for running
-FunctionGraph on OpenTelekomCloud.
+This is the **FunctionGraph Go Development Guide** for running
+FunctionGraph.
 
 .. toctree::
    :maxdepth: 10
@@ -17,20 +17,21 @@ FunctionGraph on OpenTelekomCloud.
    Samples <samples/_index>
    Best Practices <devguide/bestpractices/_index>
 
-
-.. warning::
-
-   Work in progress. Subject to change without notice.
-
-
+.. warning:: Work in progress. Subject to change without notice.
 
 Source Code
 -----------
 
 For source code, see :github_repo_master:`otc-functiongraph-go-runtime<>` on Github.
 
+FunctionGraph User Guide
+------------------------
+
+For FunctionGraph usage, see :otc_fg_umn:`FunctionGraph User Guide <>`.
+
+
 Documentation from source
-^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------------
 
 This documentation is written using `Sphinx <https://www.sphinx-doc.org/en/master/index.html>`_
 and `reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_.
@@ -44,11 +45,6 @@ and `reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredte
   .. code-block:: shell
 
      tox -e docs-auto
-
-FunctionGraph User Guide
-------------------------
-
-For FunctionGraph usage, see :otc_fg_umn:`FunctionGraph User Guide <>`.
 
 
 FunctionGraph Notes and Constraints

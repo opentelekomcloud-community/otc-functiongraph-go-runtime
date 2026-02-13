@@ -21,7 +21,7 @@ tf_init:
 
 tf_plan: 
 	if [ ! -f "terraform/.terraform.lock.hcl" ]; then \
-		$(MAKE) -f $(CURRENT_MAKEFILE) initTerraform; \
+		$(MAKE) -f $(CURRENT_MAKEFILE) tf_init; \
 	fi
 	terraform -chdir=terraform \
 	  plan \
@@ -30,7 +30,7 @@ tf_plan:
 
 tf_apply: docker_push
 	if [ ! -f "terraform/.terraform.lock.hcl" ]; then \
-		$(MAKE) -f $(CURRENT_MAKEFILE) initTerraform; \
+		$(MAKE) -f $(CURRENT_MAKEFILE) tf_init; \
 	fi
 	terraform -chdir=terraform \
 	  apply -auto-approve \

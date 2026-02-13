@@ -89,9 +89,4 @@ type RuntimeContext interface {
 	GetWorkflowID() string
 
 	GetWorkflowRunID() string
-	
-
-	
-	// Get the alias from Header
-	GetAlias2() string
 }

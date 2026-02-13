@@ -14,6 +14,16 @@ clean:
 	rm -f deploy.zip
 	rm -rf target
 
+test_local_post:
+	@curl -X POST \
+	-H 'Content-Type: application/json' \
+	-d 'nice to meet you local' \
+	http://localhost:8000/hello
+
+test_local_get:
+	@curl -X GET \
+	http://localhost:8000/hello 
+
 all: clean build zip
 
-.PHONY: build zip clean all
+.PHONY: build zip clean all test_local_post test_local_get

@@ -5,7 +5,7 @@ include ./Makefile
 
 # Terraform backend configuration
 BACKEND_CONFIG_BUCKET := "doc-samples-tf-backend"
-BACKEND_CONFIG_KEY := "terraform_state/go/go-buildinghttpfunction.tf"
+BACKEND_CONFIG_KEY := "terraform_state/go/go-scratch-http.tf"
 BACKEND_CONFIG_REGION := "eu-de"
 BACKEND_CONFIG_ENDPOINTS := "endpoints={s3=\"https://obs.eu-de.otc.t-systems.com\"}"
 
@@ -21,7 +21,7 @@ tf_init:
 
 tf_plan: 
 	if [ ! -f "terraform/.terraform.lock.hcl" ]; then \
-		$(MAKE) -f $(CURRENT_MAKEFILE) initTerraform; \
+		$(MAKE) -f $(CURRENT_MAKEFILE) tf_init; \
 	fi
 	terraform -chdir=terraform \
 	  plan \
@@ -29,7 +29,7 @@ tf_plan:
 
 tf_apply: all
 	if [ ! -f "terraform/.terraform.lock.hcl" ]; then \
-		$(MAKE) -f $(CURRENT_MAKEFILE) initTerraform; \
+		$(MAKE) -f $(CURRENT_MAKEFILE) tf_init; \
 	fi
 	terraform -chdir=terraform \
 	  apply -auto-approve \
@@ -40,12 +40,31 @@ tf_destroy:
 	  destroy -auto-approve \
 		-var-file="variables.tfvars"
 
-test_deployed:
+test_deployed_post:
+  # test invokation via FunctionGraph API
+  # getting Token for authentication from Username/Password...
+	$(eval OTC_X_AUTH_TOKEN := $(shell ../../utils/tokenFromUsername.sh))
+	# getting the Function URN from terraform output...
+	$(eval MY_FUNCTION_URN := $(shell terraform -chdir=terraform output -raw MY_FUNCTION_URN))
+	# calling the deployed function via FunctionGraph API...
+	@curl -X POST \
+	 -H "Content-Type: application/json" \
+	 -H "x-auth-token: $(OTC_X_AUTH_TOKEN)" \
+	 -d @./resources/test_post_event.json  \
+	 https://functiongraph.$(OTC_SDK_REGION).otc.t-systems.com/v2/$(OTC_SDK_PROJECTID)/fgs/functions/$(MY_FUNCTION_URN):latest/invocations
+	@echo "" 
+	# finished
+
+test_deployed_apig_post:
+  # test invokation via API Gateway
 	# get the API Gateway URL from terraform output
 	$(eval API_GATEWAY_TRIGGER_URL := $(shell terraform -chdir=terraform output -raw API_GATEWAY_TRIGGER_URL))
 	@echo "Using API Gateway URL: $(API_GATEWAY_TRIGGER_URL)"
 	# execute a curl request against the deployed function via API Gateway
-	curl -X GET $(API_GATEWAY_TRIGGER_URL)/hello
+	@curl -X POST \
+	 -H 'Content-Type: application/json' \
+	 -d 'nice to meet you' \
+	 $(API_GATEWAY_TRIGGER_URL)/hello
 	@echo ""
 
-.PHONY: tf_init tf_plan tf_apply tf_destroy test_deployed
+.PHONY: tf_init tf_plan tf_apply tf_destroy test_deployed_post test_deployed_apig_post
