@@ -2,17 +2,6 @@
 
 Go runtime libraries for FunctionGraph on OpenTelekomCloud.
 
-
-
-> [!Note]
-> <pre>
-> ###############################################
->             Work in progress....
->     !! SUBJECT TO CHANGE WITHOUT NOTICE !!
-> ###############################################
-> </pre>
->  
-
 ## Documentation
 
 For documentation see: [otc-functiongraph-go-runtime](https://opentelekomcloud-community.github.io/otc-functiongraph-go-runtime/)

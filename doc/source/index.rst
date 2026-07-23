@@ -17,8 +17,6 @@ FunctionGraph.
    Samples <samples/_index>
    Best Practices <devguide/bestpractices/_index>
 
-.. warning:: Work in progress. Subject to change without notice.
-
 Source Code
 -----------
 
