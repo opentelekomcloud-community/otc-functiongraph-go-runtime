@@ -22,7 +22,7 @@ Terraform deployment scripts can be found in:
 
 provider.tf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-This script configures the OpenTelekomCloud provider for Terraform.
+This script configures the provider for Terraform.
 
 .. literalinclude:: /../../samples-doc/container-http/terraform/provider.tf
    :language: terraform

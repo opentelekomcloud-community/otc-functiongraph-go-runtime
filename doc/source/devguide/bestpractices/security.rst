@@ -1,8 +1,8 @@
 Security best practices
 ===============================
 
-Security is a shared responsibility between Open Telekom Cloud and you.
-Open Telekom Cloud is responsible for the security of its cloud services
+Security is a shared responsibility between the cloud provider and you.
+The cloud provider is responsible for the security of its cloud services
 and provides a secure cloud environment.
 
 You need to make reasonable use of the security features provided by the
@@ -53,7 +53,7 @@ Fine-grained access control and enabling identity authentication
 -----------------------------------------------------------------
 
 * :docs_otc:`When configuring agency permissions <function-graph/umn/configuring_functions/configuring_agency_permissions.html>` and AK/SK for FunctionGraph functions using 
-  Open Telekom Cloud Unified Identity Authentication Service (IAM), the principle of
+  Unified Identity Authentication Service (IAM), the principle of
   least privilege should be followed to ensure that functions can only access specified
   resources.
   For example, restricting a function's read and write permissions to a specific OBS bucket
@@ -67,7 +67,7 @@ Fine-grained access control and enabling identity authentication
 Configure a VPC for the function to prevent external attacks
 -----------------------------------------------------------------------
 
-When a user function needs to access resources within a Open Telekom Cloud Virtual Private
+When a user function needs to access resources within a Virtual Private
 Cloud (VPC), such as RDS, it is recommended to
 :docs_otc:`configure a VPC </function-graph/umn/configuring_functions/configuring_networks.html>`
 for the function to ensure that communication between the function and other cloud services takes

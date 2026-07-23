@@ -12,9 +12,11 @@ ENV GROUP_NAME=paas_user
 ENV USER_ID=1003
 ENV USER_NAME=paas_user
 
-# adjust for alpine base image
+# Set timzone to UTC
+ENV TZ=Etc/UTC
 
-RUN mkdir --mode 550 --parents ${HOME} && \
+RUN apk add --no-cache tzdata && \
+    mkdir --mode 550 --parents ${HOME} && \
     # add group with specific GID
     addgroup -g ${GROUP_ID} ${GROUP_NAME} && \
     # add user with specific UID and GID

@@ -181,6 +181,7 @@ html_static_path = ["_static"]
 # or fully qualified paths (eg. https://...)
 html_css_files = [
     'css/custom.css',
+    'css/strikethrough.css',
 ]
 
 templates_path = ["_templates"]
@@ -241,6 +242,7 @@ sphinx_tabs_valid_builders = ["linkcheck"]
 
 rst_prolog = """
 .. |github_repo| replace:: "https://github.com/opentelekomcloud-community/otc-functiongraph-go-runtime.git"
+.. role:: strikethrough
 """
 # version = "1.0.0"
 # release = "1.0.0"

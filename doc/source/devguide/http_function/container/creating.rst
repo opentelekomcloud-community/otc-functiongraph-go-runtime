@@ -3,11 +3,18 @@
 Creating an HTTP Function Using a Container Image Built with Go
 ================================================================
 
-For general details about how to use a container image
-to create and execute an HTTP function,
-see :otc_fg_umn:`Creating an HTTP Function Using a Container Image and executing the Function <getting_started/creating_an_http_function_using_a_container_image_and_executing_the_function.html>`.
+.. toctree::
+   :hidden:
 
-This chapter introduces how to create an image using the Go language
+Introduction
+------------
+
+For general details about how to use a container image to create and
+execute an HTTP function,
+see :otc_fg_umn:`Creating an HTTP Function Using a Container Image and executing the Function <getting_started/creating_an_http_function_using_a_container_image_and_executing_the_function.html>`
+in the user manual.
+
+This chapter describes how to create an image using the Go language
 and perform local verification for HTTP functions.
 
 .. note::
@@ -20,14 +27,15 @@ and perform local verification for HTTP functions.
 Constraints and Limitations
 ---------------------------
 
-* HTTP functions only support the use of APIG triggers.
-
-Complete code can be found on Github: :github_repo_master:`Container HTTP Sample <samples-doc/container-http>`
+For constraints and limitations when building Go HTTP functions using container images,
+see :ref:`general_constraints_go_http`.
 
 Step 1: Create the Project
 --------------------------------------------
 
 In this example we use the `gin` framework to create an HTTP server.
+
+Complete code for this sample can be found on Github: :github_repo_master:`Container HTTP Sample <samples-doc/container-http>`
 
 For details about gin framework, see:
 
@@ -41,7 +49,7 @@ Create Go Module
 
 .. code-block:: shell
 
-   # cretate project directory and src subdirectory
+   # create project directory and src subdirectory
    mkdir -p container-http/src
    # navigate to project directory
    cd container-http
@@ -63,8 +71,6 @@ Run the following commands to add the necessary dependencies:
     # add gin framework
     go get -u github.com/gin-gonic/gin
 
-    # add otc-functiongraph-go-runtime package for use with FunctionGraph events
-    go get -u github.com/opentelekomcloud-community/otc-functiongraph-go-runtime
 
 **4. Resulting go.mod**
 
@@ -85,8 +91,8 @@ Change folder to **src** folder:
    # navigate to src directory
    cd src
 
-The FunctionGraph program implements an HTTP server to process **init** and **invoke**
-requests and give a response.
+The FunctionGraph program implements an HTTP server to process **POST** and **GET**
+requests on **/index** and give a response.
 
 * Create a **main.go** file,
 * import the **gin** dependency package,
@@ -94,7 +100,8 @@ requests and give a response.
 
   Go runs this function named **init** automatically before any other part of the package.
 
-* implement a function handler (method **POST** and path **/index**).
+* implement a function to process **POST** requests on **/index**.
+* implement a function to process **GET** requests on **/index**.
 
 The following code is an example implementation of the above steps.
 
@@ -121,29 +128,20 @@ To test the function from source code, execute in the **container-http/src** fol
 
 The server starts listening on port 8000.
 
-You can use curl to send a test request to the function with payload from
-**resources/apig_post_index.json** using a new shell.
+You can use curl to send a POST request to the function using a new shell.
 
-.. tabs::
+.. code-block:: shell
 
-  .. tab:: Curl
+    curl -X POST \
+      -H 'Content-Type: application/json' \
+      -d '{"message": "Hello from API Gateway POST request"}' \
+      http://localhost:8000/index
 
-      .. code-block:: shell
+The expected response is:
 
-         curl -X POST -H 'Content-Type: application/json' http://localhost:8000/index -d @./resources/apig_post_index.json
+.. code-block:: text
 
-      The expected response is:
-
-      .. code-block:: json
-
-          {"body":"Hello from FunctionGraph!","headers":{"content-type":"application/json"},"statusCode":200,"isBase64Encoded":false}
-
-  .. tab:: Payload **resources/apig_post_index.json**
-
-      .. literalinclude:: /../../samples-doc/container-http/resources/apig_post_index.json
-        :language: json
-        :caption: apig_post_index.json
-        :tab-width: 2
+   Hello from FunctionGraph!
 
 
 Create a Makefile
@@ -210,7 +208,7 @@ In the terminal, you should see output similar to the following:
 
 .. code-block:: shell
 
-    init in main.go 
+    init in main.go
     [GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
 
     [GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
@@ -234,7 +232,10 @@ Test the program locally either using **curl** or the Makefile target **test_loc
 
        .. code-block:: shell
 
-          curl -X POST -H 'Content-Type: application/json' -d @./resources/apig_post_index.json localhost:8000/index
+          curl -X POST \
+            -H 'Content-Type: application/json' \
+            -d '{"message": "Hello from API Gateway POST request"}' \
+            localhost:8000/index
 
   .. tab:: using Makefile target "test_local"
        Run the following command in a new terminal
@@ -248,9 +249,9 @@ You should see output similar to the following:
 
 .. code-block:: text
 
-   {"body":"Hello from FunctionGraph!","headers":{"content-type":"application/json"},"statusCode":200,"isBase64Encoded":false}
+   Hello from FunctionGraph!
 
-Step 2: Build the Container Image
+Step 2: Build the Image
 --------------------------------------------
 
 Create a Dockerfile
@@ -374,7 +375,10 @@ Test the image either using **curl** or the Makefile target **test_local**:
 
       .. code-block:: shell
 
-         curl -X POST -H 'Content-Type: application/json' -d @./resources/apig_post_index.json localhost:8000/invoke
+         curl -X POST \
+           -H 'Content-Type: application/json' \
+           -d '{"message": "Hello from API Gateway POST request"}' \
+           localhost:8000/invoke
 
   .. tab:: using Makefile target "test_local"
       Run the following command in a new terminal to test the image:
@@ -387,10 +391,10 @@ You should see output similar to the following:
 
 .. code-block:: text
 
-   {"body":"Hello from FunctionGraph!","headers":{"content-type":"application/json"},"statusCode":200,"isBase64Encoded":false}
+   Hello from FunctionGraph!
 
 
-Step 3: Upload the Container Image to SWR (SoftWare Repository for Container)
+Step 3: Upload the Image to SWR
 -----------------------------------------------------------------------------
 
 For details on SWR (SoftWare Repository for Container), see:
@@ -403,7 +407,7 @@ Prerequisites
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 - SWR instance created.
   For more information, see :otc_fg_umn:`Creating a Software Repository for Container <getting_started/creating_a_software_repository_for_container.html#functiongraph-04-0201>`.
-- Credentials for SWR created. 
+- Credentials for SWR created.
   For more information, see :otc_fg_umn:`Creating Access Credentials <getting_started/creating_access_credentials.html#functiongraph-04-0202>`.
 
 Upload the image to SWR
@@ -487,11 +491,11 @@ Upload the image to SWR either using **shell commands** or the Makefile target *
 
           make docker_push
 
-Step 4: Create the HTTP Function in FunctionGraph Using the Container Image
+Step 4: Create FunctionGraph HTTP Function
 -----------------------------------------------------------------------------
 
 1. In the left navigation pane of the management console, choose **Compute** > **FunctionGraph**.
-   On the FunctionGraph console, choose **Functions** > **Function List** from the navigation pane.
+   On the :fg_console:`FunctionGraph console <>`, choose **Functions** > **Function List** from the navigation pane.
 2. Click **Create Function** in the upper right corner. On the displayed page, select **Container Image**
    for creation mode.
 3. Set the basic function information.
@@ -549,24 +553,29 @@ Step 4: Create the HTTP Function in FunctionGraph Using the Container Image
 See also: :otc_fg_umn:`Step 4: Creating Function <getting_started/creating_an_http_function_using_a_container_image_and_executing_the_function.html#step-4-create-a-function>`
 in the user manual.
 
-Step 5: Test the HTTP Function
+Step 5: Test using console
 ---------------------------------------------------------------
 
-On the function details page, click **Test**.
+To test using console you have to create a test event in the same structure as
+an API Gateway would send the request to the function.
+
+Create the test event using :fg_console:`FunctionGraph console <>`,
+in Code section, select **Configure Test Event** and click **Test**.
+
 In the displayed dialog box, create a test event:
 
 - Select **API Gateway (Dedicated)** (only available option),
 - set **Event Name** to **helloworld**,
--  modify the test event as follows,
+-  modify the test event as follows:
 
   .. literalinclude:: /../../samples-doc/container-http/resources/apig_post_index.json
      :language: json
      :caption: apig_post_index.json
      :tab-width: 2
 
-  .. note::  
+  .. note::
     Make sure to modify the payload send as body to your FunctionGraph accordingly.
-    The **Test** function in FunctionGraph console uses these settings to call your function:
+    The **Test** function in :fg_console:`FunctionGraph console <>` uses these settings to call your function:
 
     * **path**: set to the path defined in your function (e.g. **/index**),
     * **httpMethod**: set to the method defined in your function (e.g. **POST**),
@@ -582,19 +591,14 @@ in the user manual.
 Step 6: View the Execution Result
 ---------------------------------
 
-Click **Test** and view the execution result on the right.
+Click **Test** and view the **Execution Result** on the right.
 
 You should see output similar to the following:
 
-.. image:: ./sampledata_output.png
-   :alt: Execution Result
-   :align: center
+  .. figure:: ./sampledata_output.png
+    :scale: 100 %
+    :alt: Trigger settings
 
-The execution result contains the following sections:
-
-* The **Function Output** section displays the function's return value.
-
-  The response returned by FunctionGraph a Json object of Type **apig.APIGTriggerResponse**.
 
   The **body** field contains the base64 encoded response body:
 
@@ -616,10 +620,124 @@ The execution result contains the following sections:
 
 * The **Log Output** section displays the logs generated during function execution.
 
-  .. note::
-     This page displays a maximum of 2K logs.
+  .. note:: This page displays a maximum of 2K logs.
 
 * The **Summary** section displays key information from the **Log**.
+
+.. _getting_apig_trigger_url_container:
+
+Step 7: Creating an APIG (Dedicated) trigger
+--------------------------------------------
+
+Create an APIG (dedicated) trigger by referring to :otc_docs:`Step 7: Configure the trigger information <function-graph/umn/configuring_triggers/using_an_apig_dedicated_trigger.html#functiongraph-01-0204>`
+in the user guide.
+
+Set following parameters:
+
+.. list-table::
+    :header-rows: 1
+    :widths: 20 80
+
+    * - Parameter
+      - Description
+
+    * - Trigger Type
+      - API Gateway (Dedicated)
+
+    * - API instance
+      - Create a new API instance or select an existing API instance.
+
+    * - API Name
+      - e.g. **MyGoHttpAPIContainer**
+
+    * - API Group
+      - Create a new API group or select an existing API group.
+
+    * - Environment
+      - **RELEASE**
+
+    * - Security Authentication
+      - **None** for debugging
+
+    * - Protocol
+      - **HTTPS**
+
+    * - Method
+      - **ANY**
+
+
+The ``API_GATEWAY_TRIGGER_URL`` is displayed after the trigger is created.
+
+See the following figure:
+
+.. figure:: apig_dedicated.png
+    :scale: 100 %
+    :alt: Trigger settings
+
+
+Step 8: Test using APIG trigger
+---------------------------------------------------------
+
+Test using browser
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Copy the URL of the APIG trigger and add **/index** to the address box of the browser.
+
+.. code-block:: text
+
+   ${API_GATEWAY_TRIGGER_URL}/index
+
+This will test the HTTP function using an HTTP **GET** request.
+
+.. figure:: ./invocationtest_http_container.png
+   :scale: 100 %
+   :alt: Result
+
+   The following information is displayed:
+
+You can also add a query parameter **name** to the URL, e.g.:
+
+.. code-block:: text
+
+   ${API_GATEWAY_TRIGGER_URL}/index?name=John
+
+
+.. figure:: ./invocationtest_http_container_query.png
+   :scale: 100 %
+   :alt: Result with query parameter
+
+   The following information is displayed:
+
+Test using curl
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Use curl to send a **GET** request to the function:
+.. code-block:: shell
+
+   curl -X GET ${API_GATEWAY_TRIGGER_URL}/index
+
+The expected response is:
+
+.. code-block:: text
+
+   Hello, World! This is a GET request.
+
+
+Use curl to send a **POST** request to the function:
+
+.. code-block:: shell
+
+   curl -X POST \
+     -H 'Content-Type: application/json' \
+     -d '{"message": "Hello from API Gateway POST request"}' \
+     ${API_GATEWAY_TRIGGER_URL}/index
+
+The expected response is:
+
+.. code-block:: text
+
+   Hello from FunctionGraph!
+
 
 Deploy the HTTP Function using Terraform
 ---------------------------------------------------------------

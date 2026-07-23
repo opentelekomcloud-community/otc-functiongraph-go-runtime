@@ -3,11 +3,6 @@
 Building FunctionGraph HTTP Functions with Go from container image
 ==========================================================================
 
-.. toctree::
-   :hidden:
-
-   Create Image <creating>
-
 Set up development environment
 --------------------------------
 
@@ -16,3 +11,14 @@ FunctionGraph with container image, you need to install Docker.
 
 See `Get Docker <https://docs.docker.com/get-docker/>`_ for instructions
 on how to install Docker on your system.
+
+Create Image
+-----------------
+
+On how to create a FunctionGraph HTTP function using Go
+with container image, see:
+
+.. toctree::
+   :maxdepth: 1
+
+   Create Image <creating>

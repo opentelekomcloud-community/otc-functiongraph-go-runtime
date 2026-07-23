@@ -99,14 +99,12 @@ func (ctx TestContext) GetOriginVersionTag() string  { return ctx.OriginVersionT
 func (ctx TestContext) GetWorkflowStateID() string   { return ctx.WorkflowStateID }
 func (ctx TestContext) GetWorkflowID() string        { return ctx.WorkflowID }
 func (ctx TestContext) GetWorkflowRunID() string     { return ctx.WorkflowRunID }
-func (ctx TestContext) GetAlias2() string            { return ctx.Alias2 }
 
 // NewTestContext creates a new TestContext with default/mock values
 func NewTestContext() TestContext {
 	return TestContext{
 		AccessKey:            "mock-access-key",
 		Alias:                "mock-alias",
-		Alias2:               "mock-alias-2",
 		CPUNumber:            1,
 		FuncStart:            time.Now(),
 		FunctionName:         "mock-function-name",

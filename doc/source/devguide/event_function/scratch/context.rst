@@ -9,6 +9,8 @@ the invocation, function, and execution environment.
 Context interface
 -----------------
 
+
+
 .. list-table:: **Table 1** Context interface methods
    :widths: 10 25
    :header-rows: 1
@@ -89,16 +91,16 @@ Context interface
    * - GetAlias()
      - Get the alias of a function
 
-   * - NA: getInvokeProperty()
+   * - :strikethrough:`getInvokeProperty()`
      - Get the invoke property
 
-   * - NA: getTraceID()
+   * - :strikethrough:`getTraceID()`
      - Get the trace id (not yet available)
 
-   * - NA: getInvokeID()
+   * - :strikethrough:`getInvokeID()`
      - Get the invoke id
 
-   * - NA: getState()
+   * - :strikethrough:`getState()`
      - Get the state
 
    * - GetProjectID()

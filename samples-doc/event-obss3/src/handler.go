@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	obs "github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/events/obss3"
+	obs "github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-events/obss3"
 	"github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/go-api/context"
 	"github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/pkg/runtime"
 )

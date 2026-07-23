@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/events/timer"
+	"github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-events/timer"
 	"github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/go-api/context"
 	"github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/pkg/runtime"
 )

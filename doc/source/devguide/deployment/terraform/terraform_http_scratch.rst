@@ -12,18 +12,18 @@ Prerequisite
 * Exiting API Gateway instance to create the trigger for the HTTP Function.
 
 
-Full sample can be found on Github: :github_repo_master:`Building HTTP Function <samples-doc/buildinghttpfunction>`.
+Full sample can be found on Github: :github_repo_master:`Building HTTP Function <samples-doc/scratch-http>`.
 
 Terraform Scripts
 ---------------------
 Terraform deployment scripts can be found in:
-:github_repo_master:`samples-doc/buildinghttpfunction/terraform <samples-doc/buildinghttpfunction/terraform>`
+:github_repo_master:`samples-doc/scratch-http/terraform <samples-doc/scratch-http/terraform>`
 
 provider.tf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-This script configures the OpenTelekomCloud provider for Terraform.
+This script configures the provider for Terraform.
 
-.. literalinclude:: /../../samples-doc/buildinghttpfunction/terraform/provider.tf
+.. literalinclude:: /../../samples-doc/scratch-http/terraform/provider.tf
    :language: terraform
    :caption: provider.tf
 
@@ -31,7 +31,7 @@ variables.tf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 This script defines the variables used in the Terraform scripts.
 
-.. literalinclude:: /../../samples-doc/buildinghttpfunction/terraform/variables.tf
+.. literalinclude:: /../../samples-doc/scratch-http/terraform/variables.tf
    :language: terraform
    :caption: variables.tf
 
@@ -40,7 +40,7 @@ variables.tfvars
 
 This file provides values for the variables defined in **variables.tf**.
 
-.. literalinclude:: /../../samples-doc/buildinghttpfunction/terraform/variables.tfvars
+.. literalinclude:: /../../samples-doc/scratch-http/terraform/variables.tfvars
    :language: terraform
    :caption: variables.tfvars
 
@@ -48,7 +48,7 @@ loggroup.tf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 This script creates a log group and log stream in LTS.
 
-.. literalinclude:: /../../samples-doc/buildinghttpfunction/terraform/loggroup.tf
+.. literalinclude:: /../../samples-doc/scratch-http/terraform/loggroup.tf
    :language: terraform
    :caption: loggroup.tf
 
@@ -56,7 +56,7 @@ function.tf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 This script creates the HTTP Function using the container image.
 
-.. literalinclude:: /../../samples-doc/buildinghttpfunction/terraform/function.tf
+.. literalinclude:: /../../samples-doc/scratch-http/terraform/function.tf
    :language: terraform
    :caption: function.tf
 
@@ -81,7 +81,7 @@ invoke the HTTP Function:
   this API to the FunctionGraph function
 - publish API using (opentelekomcloud_apigw_api_publishment_v2)
 
-.. literalinclude:: /../../samples-doc/buildinghttpfunction/terraform/api_trigger.tf
+.. literalinclude:: /../../samples-doc/scratch-http/terraform/api_trigger.tf
    :language: terraform
    :caption: api_trigger.tf
 
@@ -95,7 +95,7 @@ testevent.tf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 This script creates a test event to test the HTTP Function.
 
-.. literalinclude:: /../../samples-doc/buildinghttpfunction/terraform/testevent.tf
+.. literalinclude:: /../../samples-doc/scratch-http/terraform/testevent.tf
    :language: terraform
    :caption: testevent.tf
 
@@ -108,7 +108,7 @@ MakefileTF
 To simplify the development and testing process,
 see **MakefileTF** in the project root folder:
 
-.. literalinclude:: /../../samples-doc/buildinghttpfunction/MakefileTF
+.. literalinclude:: /../../samples-doc/scratch-http/MakefileTF
    :language: make
    :caption: MakefileTF
    :tab-width: 2

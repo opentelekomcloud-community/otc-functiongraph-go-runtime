@@ -12,12 +12,19 @@ type ContextEnv struct {
 	rtUserData           map[string]string // RUNTIME_USER_DATA
 	rtInitializerTimeout int               // RUNTIME_INITIALIZER_TIMEOUT
 	rtInitializerHandler string            // RUNTIME_INITIALIZER_HANDLER
-	rtAlias              string            // RUNTIME_ALIAS
 	// new
-	rtMaxRequestBodySize  int    // RUNTIME_MAX_REQUEST_BODY_SIZE
+	rtMaxRequestBodySize  int    // MAX_REQUEST_BODY_SIZE
 	rtPreStopHandler      string // RUNTIME_PRESTOP_HANDLER
 	rtRunMaxStateSize     int    // RUNTIME_MAX_STATE_SIZE
 	rtMaxResponseBodySize int    // RUNTIME_MAX_RESP_BODY_SIZE
+
+	rtRootDir  string // RUNTIME_ROOT_DIR
+	rtCodeRoot string // RUNTIME_CODE_ROOT
+
+	rtLogDir   string // RUNTIME_LOG_DIR
+	rtLogLevel string // RUNTIME_LOG_LEVEL
+	rtLogPath  string // RUNTIME_LOG_PATH
+
 }
 
 type ContextHTTP struct {
@@ -39,6 +46,7 @@ type ContextHTTP struct {
 	workflowStateId  string
 	workflowId       string
 	workflowRunId    string
+	alias            string
 }
 
 type ContextProvider struct {

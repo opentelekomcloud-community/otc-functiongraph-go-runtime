@@ -27,7 +27,7 @@ Code optimization
   code other than 200 (such as 500, 429, 504, etc.), the client can add retry logic based on
   specific business needs, which can further ensure the reliability of the business.
 
-* Use appropriate logging. When accessing third-party services, Open Telekom Cloud services,
+* Use appropriate logging. When accessing third-party services, cloud services,
   and performing related operations in FunctionGraph functions, logs should be recorded to
   facilitate subsequent anomaly localization, performance optimization, and business analysis.
 

@@ -2,6 +2,7 @@ package rtcontext
 
 import (
 	"fmt"
+	"os"
 	"strings"
 	"sync"
 	"time"
@@ -16,7 +17,7 @@ var (
 	funcLogger = &userFunctionLog{}
 )
 
-var DEBUG_MODE = false
+const DEBUG_MODE = false
 
 func (ctxProvider ContextProvider) GetRemainingTimeInMilliSeconds() int {
 	currentTime := getCurrentTime()
@@ -81,10 +82,6 @@ func (ctxProvider ContextProvider) GetInitializerHandler() string {
 	return ctxProvider.ctxEnv.rtInitializerHandler
 }
 
-func (ctxProvider ContextProvider) GetAlias() string {
-	return ctxProvider.ctxEnv.rtAlias
-}
-
 func (ctxProvider ContextProvider) GetMaxRequestBodySize() int {
 	return ctxProvider.ctxEnv.rtMaxRequestBodySize
 }
@@ -99,6 +96,26 @@ func (ctxProvider ContextProvider) GetRunMaxStateSize() int {
 
 func (ctxProvider ContextProvider) GetMaxResponseBodySize() int {
 	return ctxProvider.ctxEnv.rtMaxResponseBodySize
+}
+
+func (ctxProvider ContextProvider) GetRootDir() string {
+	return ctxProvider.ctxEnv.rtRootDir
+}
+
+func (ctxProvider ContextProvider) GetCodeRoot() string {
+	return ctxProvider.ctxEnv.rtCodeRoot
+}
+
+func (ctxProvider ContextProvider) GetLogDir() string {
+	return ctxProvider.ctxEnv.rtLogDir
+}
+
+func (ctxProvider ContextProvider) GetLogLevel() string {
+	return ctxProvider.ctxEnv.rtLogLevel
+}
+
+func (ctxProvider ContextProvider) GetLogPath() string {
+	return ctxProvider.ctxEnv.rtLogPath
 }
 
 func (ctxProvider ContextProvider) GetAccessKey() string {
@@ -149,7 +166,8 @@ func (ctxProvider ContextProvider) GetOriginVersionTag() string {
 	return ctxProvider.ctxHTTPHead.originVersionTag
 }
 
-func (ctxProvider ContextProvider) GetAlias2() string {
+func (ctxProvider ContextProvider) GetAlias() string {
+
 	alias, found := strings.CutPrefix(ctxProvider.ctxHTTPHead.originVersionTag, "!")
 	if found {
 		return alias
@@ -193,11 +211,14 @@ func GetContextHTTPHeadInstance(req *common.InvokeRequest) *ContextHTTP {
 	contextHTTPHead := new(ContextHTTP)
 
 	if DEBUG_MODE {
+		// print all headers
 		for name, values := range req.Header {
-			// Loop over all values for the name.
-			for _, value := range values {
-				fmt.Println(name, value)
-			}
+			fmt.Println(name, "=", values)
+		}
+
+		// print all environment variables
+		for _, v := range os.Environ() {
+			fmt.Println(v)
 		}
 	}
 

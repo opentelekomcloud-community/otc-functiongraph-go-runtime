@@ -14,7 +14,7 @@ import (
 	"regexp"
 
 	"github.com/huaweicloud/huaweicloud-sdk-go-obs/obs"
-	obsevent "github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/events/obss3"
+	obsevent "github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-events/obss3"
 	"github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/go-api/context"
 	"github.com/opentelekomcloud-community/otc-functiongraph-go-runtime/go-runtime/pkg/runtime"
 	"golang.org/x/image/draw"

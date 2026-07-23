@@ -2,5 +2,12 @@
   "restructuredtext.linter.doc8.extraArgs": [
     "--config ${workspaceFolder}/doc/doc8.ini"
   ],
+  "go.useLanguageServer": true,
+  "go.formatTool": "gofumpt",
+  "go.lintTool": "golangci-lint",
+  
+  "go.vetOnSave": "off",
+  "go.coverOnSave": false,
+  "go.toolsManagement.autoUpdate": true,
   
 }

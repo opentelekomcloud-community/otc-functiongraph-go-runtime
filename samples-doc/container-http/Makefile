@@ -20,7 +20,7 @@ docker_build: build
 		--file $(DOCKER_FILE) \
 		--tag $(IMAGE_NAME):latest .
 
-docker_run_local:
+docker_run_local: docker_build
 	docker container run \
 	  --rm \
 		--platform linux/amd64 \
@@ -38,7 +38,14 @@ docker_all: build docker_build docker_push
 
 test_local:
   # execute a curl 
-	curl -X POST -H 'Content-Type: application/json' -d @./resources/apig_post_index.json http://localhost:8000/index
+	@curl -X POST \
+	  -H "X-Cff-Request-Id: $(shell uuidgen)" \
+	  -H "X-Cff-Func-Name: 0@default@sample-container-http" \
+		-H "X-Cff-Func-Version: latest" \
+	  -H 'Content-Type: application/json' \		
+		-d '{"message": "Hello from API Gateway POST request"}' \
+		http://localhost:8000/index
+	@echo ""
 
 clean:
 	rm -rf $(TARGET_PATH)

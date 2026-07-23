@@ -25,41 +25,43 @@ func getCurrentTime() int64 {
 }
 
 func (contextObj *ContextEnv) InitializeContext() {
+
 	timeout := os.Getenv("RUNTIME_TIMEOUT")
 	if timeout == "" {
 		timeout = defaultTimeout
 	}
 	contextObj.rtTimeout = atoi(timeout)
+
 	rtProjectID := os.Getenv("RUNTIME_PROJECT_ID")
 	if rtProjectID != "" {
 		contextObj.rtProjectID = rtProjectID
 	}
+
 	rtPackage := os.Getenv("RUNTIME_PACKAGE")
 	if rtPackage != "" {
 		contextObj.rtPackage = rtPackage
 	}
+
 	rtFcName := os.Getenv("RUNTIME_FUNC_NAME")
 	if rtFcName != "" {
 		contextObj.rtFcName = rtFcName
-	}
-
-	rtAlias := os.Getenv("RUNTIME_ALIAS")
-	if rtAlias != "" {
-		contextObj.rtAlias = rtAlias
 	}
 
 	rtFcVersion := os.Getenv("RUNTIME_FUNC_VERSION")
 	if rtFcVersion != "" {
 		contextObj.rtFcVersion = rtFcVersion
 	}
+
 	rtMemory := os.Getenv("RUNTIME_MEMORY")
 	if rtMemory != "" {
 		contextObj.rtMemory = atoi(rtMemory)
 	}
+
 	rtCPU := os.Getenv("RUNTIME_CPU")
 	if rtCPU != "" {
 		contextObj.rtCPU = atoi(rtCPU)
 	}
+
 	rtUserData := os.Getenv("RUNTIME_USERDATA")
 	if rtUserData != "" {
 		err := json.Unmarshal([]byte(rtUserData), &contextObj.rtUserData)
@@ -67,7 +69,9 @@ func (contextObj *ContextEnv) InitializeContext() {
 			log.Println("Failed to Unmarshal Userdata")
 		}
 	}
+
 	contextObj.rtHandler = os.Getenv("RUNTIME_HANDLER")
+
 	InitializerHandler := os.Getenv("RUNTIME_INITIALIZER_HANDLER")
 	if InitializerHandler != "" {
 		contextObj.rtInitializerHandler = InitializerHandler
@@ -78,20 +82,31 @@ func (contextObj *ContextEnv) InitializeContext() {
 		contextObj.rtInitializerTimeout = atoi(InitializerTimeout)
 	}
 
-	rtMaxRequestBodySize := os.Getenv("RUNTIME_MAX_REQUEST_BODY_SIZE")
+	rtMaxRequestBodySize := os.Getenv("MAX_REQUEST_BODY_SIZE")
 	if rtMaxRequestBodySize != "" {
 		contextObj.rtMaxRequestBodySize = atoi(rtMaxRequestBodySize)
 	}
+
 	rtPreStopHandler := os.Getenv("RUNTIME_PRESTOP_HANDLER")
 	if rtPreStopHandler != "" {
 		contextObj.rtPreStopHandler = rtPreStopHandler
 	}
+
 	rtRunMaxStateSize := os.Getenv("RUNTIME_MAX_STATE_SIZE")
 	if rtRunMaxStateSize != "" {
 		contextObj.rtRunMaxStateSize = atoi(rtRunMaxStateSize)
 	}
+
 	rtMaxResponseBodySize := os.Getenv("RUNTIME_MAX_RESP_BODY_SIZE")
 	if rtMaxResponseBodySize != "" {
 		contextObj.rtMaxResponseBodySize = atoi(rtMaxResponseBodySize)
 	}
+
+	contextObj.rtRootDir = os.Getenv("RUNTIME_ROOT_DIR")
+	contextObj.rtCodeRoot = os.Getenv("RUNTIME_CODE_ROOT")
+
+	contextObj.rtLogDir = os.Getenv("RUNTIME_LOG_DIR")
+	contextObj.rtLogLevel = os.Getenv("RUNTIME_LOG_LEVEL")
+	contextObj.rtLogPath = os.Getenv("RUNTIME_LOG_PATH")
+
 }

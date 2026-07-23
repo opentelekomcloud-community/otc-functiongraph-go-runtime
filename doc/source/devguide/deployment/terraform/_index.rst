@@ -19,5 +19,5 @@ Terraform, see:
 
 .. note::
   This guide is not intended to replace Terraform documentation but gives
-  hints on how to use Terraform on OpenTelekomCloud with FunctionGraph.
+  hints on how to use Terraform with FunctionGraph.
 
