@@ -20,7 +20,7 @@ jobs:
   wiki:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
       - uses: spenserblack/actions-wiki@v0.3.0
         with:
           # Whatever directory you choose will be mirrored to the GitHub
