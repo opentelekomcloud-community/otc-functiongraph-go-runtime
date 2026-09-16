@@ -21,5 +21,7 @@ Sphinx-Substitution-Extensions
 gitpython
 sphinx-autobuild
 sphinx-autoapi
-git+https://github.com/chrisdoherty4/sphinxcontrib-golangdomain
-git+https://gitea.eco.tsi-dev.otc-service.com/infra/otc-metadata-rework.git#egg=otc_metadata
+#git+https://github.com/chrisdoherty4/sphinxcontrib-golangdomain
+#git+https://gitea.eco.tsi-dev.otc-service.com/infra/otc-metadata-rework.git#egg=otc_metadata
+git+https://github.com/opentelekomcloud-infra/t-cloud-public-metadata.git#egg=otc_metadata
+otc_metadata @ git+https://github.com/opentelekomcloud-infra/t-cloud-public-metadata.git
